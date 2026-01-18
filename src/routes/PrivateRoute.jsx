@@ -1,36 +1,16 @@
 import { Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { fetchProtected, refreshToken } from '../services/authService';
 
-export default function PrivateRoute({ children }) {
-  const [status, setStatus] = useState('loading');
+export default function PrivateRoute({ children, allowedRoles }) {
+  const token = localStorage.getItem('accessToken');
+  const role = localStorage.getItem('role');
 
-  useEffect(() => {
-    async function validate() {
-      try {
-        await fetchProtected();
-        setStatus('ok');
-      } catch (err) {
-        if (err.message === 'UNAUTHORIZED') {
-          try {
-            await refreshToken();
-            await fetchProtected();
-            setStatus('ok');
-          } catch {
-            localStorage.removeItem('accessToken');
-            setStatus('fail');
-          }
-        } else {
-          setStatus('fail');
-        }
-      }
-    }
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
-    validate();
-  }, []);
-
-  if (status === 'loading') return null;
-  if (status === 'fail') return <Navigate to="/login" replace />;
+  if (allowedRoles && !allowedRoles.includes(role)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
 
   return children;
 }

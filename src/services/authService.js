@@ -1,5 +1,15 @@
 const API_URL = 'http://localhost:3000';
 
+function parseJwt(token) {
+  try {
+    const base64Payload = token.split('.')[1];
+    const payload = atob(base64Payload);
+    return JSON.parse(payload);
+  } catch {
+    return null;
+  }
+}
+
 export async function login(email, password) {
   const res = await fetch(`${API_URL}/auth/login`, {
     method: 'POST',
@@ -11,7 +21,16 @@ export async function login(email, password) {
   if (!res.ok) throw new Error('Login failed');
 
   const data = await res.json();
+
+  // Guardar token
   localStorage.setItem('accessToken', data.accessToken);
+
+  // Guardar rol
+  const payload = parseJwt(data.accessToken);
+  if (payload?.role) {
+    localStorage.setItem('role', payload.role);
+  }
+
   return data;
 }
 
@@ -24,32 +43,23 @@ export async function refreshToken() {
   if (!res.ok) throw new Error('Refresh failed');
 
   const data = await res.json();
+
   localStorage.setItem('accessToken', data.accessToken);
+
+  const payload = parseJwt(data.accessToken);
+  if (payload?.role) {
+    localStorage.setItem('role', payload.role);
+  }
+
   return data.accessToken;
 }
 
 export async function logout() {
-  await fetch('http://localhost:3000/auth/logout', {
+  await fetch(`${API_URL}/auth/logout`, {
     method: 'POST',
     credentials: 'include',
   });
 
   localStorage.removeItem('accessToken');
-}
-
-export async function fetchProtected() {
-  const token = localStorage.getItem('accessToken');
-
-  const res = await fetch('http://localhost:3000/protected', {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    credentials: 'include',
-  });
-
-  if (res.status === 401) {
-    throw new Error('UNAUTHORIZED');
-  }
-
-  return res.json();
+  localStorage.removeItem('role');
 }

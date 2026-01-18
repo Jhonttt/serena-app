@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import api from '../api/axios';
+import { login } from '../services/authService';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -11,8 +11,7 @@ export default function Login() {
     setError('');
 
     try {
-      const res = await api.post('/auth/login', { email, password });
-      localStorage.setItem('accessToken', res.data.accessToken);
+      await login(email, password);
       alert('Login correcto');
     } catch {
       setError('Credenciales incorrectas');

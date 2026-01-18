@@ -5,11 +5,11 @@ export default function PrivateRoute({ children, allowedRoles }) {
   const role = localStorage.getItem('role');
 
   if (!token) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" />;
   }
 
   if (allowedRoles && !allowedRoles.includes(role)) {
-    return <Navigate to="/unauthorized" replace />;
+    return <Navigate to="/dashboard" />;
   }
 
   return children;

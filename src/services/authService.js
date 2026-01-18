@@ -28,6 +28,28 @@ export async function refreshToken() {
   return data.accessToken;
 }
 
-export function logout() {
+export async function logout() {
+  await fetch('http://localhost:3000/auth/logout', {
+    method: 'POST',
+    credentials: 'include',
+  });
+
   localStorage.removeItem('accessToken');
+}
+
+export async function fetchProtected() {
+  const token = localStorage.getItem('accessToken');
+
+  const res = await fetch('http://localhost:3000/protected', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    credentials: 'include',
+  });
+
+  if (res.status === 401) {
+    throw new Error('UNAUTHORIZED');
+  }
+
+  return res.json();
 }

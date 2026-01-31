@@ -1,76 +1,148 @@
-import { useForm } from "react-hook-form"
-import { useAuth } from "../context/AuthContext"
+import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function RegisterPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors }, } = useForm();
   const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     if (isAuthenticated) navigate("/profile");
-  }, [isAuthenticated])
-  
-  const onSubmit = handleSubmit(values => {
-    signup(values);
-  });
-  
+  }, [isAuthenticated]);
+
+  const onSubmit = handleSubmit((values) => signup(values));
+
   return (
-    <div className="flex items-center justify-center h-[calc(100vh-64px)] bg-gray-100 px-4 w-full overflow-x-hidden">
-      <div className="bg-white w-full max-w-lg p-12 rounded-2xl shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+    <div className="flex justify-center w-full">
+      <div className="bg-white w-full max-w-md p-10 rounded-2xl shadow-lg my-12">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Registrarse
         </h1>
-        {
-          Array.isArray(registerErrors) && registerErrors.map((error, i) => (
-            <div key={i}>
-              <p className="text-red-500 text-base">{error}</p>
-            </div>
-          ))
-        }
-        <form
-          onSubmit={onSubmit}
-          className="flex flex-col gap-6"
-        >
-          <div className="flex flex-col gap-2">
-            <label className="text-base font-medium text-gray-700">
-              Email:
+
+        {/* Errores de registro */}
+        {Array.isArray(registerErrors) &&
+          registerErrors.map((error, i) => (
+            <p key={i} className="text-red-500 text-sm mb-2">
+              {error}
+            </p>
+          ))}
+
+        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+          {/* Nombre */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Nombre</label>
+            <input
+              type="text"
+              {...register("first_name", { required: true })}
+              placeholder="Juan"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.first_name && (
+              <p className="text-red-500 text-sm">El nombre es obligatorio</p>
+            )}
+          </div>
+
+          {/* Apellido */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">
+              Apellidos
             </label>
+            <input
+              type="text"
+              {...register("last_name", { required: true })}
+              placeholder="Pérez García"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.last_name && (
+              <p className="text-red-500 text-sm">Los apellidos son obligatorio</p>
+            )}
+          </div>
+
+          {/* Email */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               {...register("email", { required: true })}
-              className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full text-base"
               placeholder="correo@ejemplo.com"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.email && (<p className="text-red-500 text-base">El email es obligatorio</p>)}
+            {errors.email && (
+              <p className="text-red-500 text-sm">El email es obligatorio</p>
+            )}
           </div>
-          <div className="flex flex-col gap-2">
-            <label className="text-base font-medium text-gray-700">
-              Contraseña:
+
+          {/* Fecha de nacimiento */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">
+              Fecha de nacimiento
+            </label>
+            <input
+              type="date"
+              {...register("birth_day", { required: true })}
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.birth_day && (
+              <p className="text-red-500 text-sm">La fecha de nacimiento es obligatoria</p>
+            )}
+          </div>
+
+          {/* Nivel educativo */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">
+              Nivel educativo
+            </label>
+            <input
+              type="text"
+              {...register("education_level", { required: true })}
+              placeholder="Ej: Secundaria, Universidad"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.education_level && (
+              <p className="text-red-500 text-sm">
+                El nivel educativo es obligatorio
+              </p>
+            )}
+          </div>
+
+          {/* Contraseña */}
+          <div className="flex flex-col gap-1">
+            <label className="text-sm font-medium text-gray-700">
+              Contraseña
             </label>
             <input
               type="password"
               {...register("password", { required: true })}
-              className="border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full text-base"
               placeholder="••••••••"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.password && (<p className="text-red-500 text-base">La contraseña es obligatoria</p>)}
+            {errors.password && (
+              <p className="text-red-500 text-sm">
+                La contraseña es obligatoria
+              </p>
+            )}
           </div>
+
+          {/* Botón */}
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 text-lg transition w-full"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 text-lg transition-colors"
           >
             Registrarse
           </button>
         </form>
-        <p className="mt-6 text-base text-center text-gray-600">
-          ¿Ya tienes una cuenta? <Link to="/login" className="text-blue-600 hover:underline">Inicia sesión</Link>
+
+        <p className="mt-6 text-sm text-center text-gray-600">
+          ¿Ya tienes una cuenta?{" "}
+          <Link to="/login" className="text-blue-600 hover:underline">
+            Inicia sesión
+          </Link>
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default RegisterPage
+export default RegisterPage;

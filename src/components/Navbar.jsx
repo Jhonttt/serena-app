@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"
-import Logo from "../assets/logo.svg"
+import { useAuth } from "../context/AuthContext";
+import Logo from "../assets/logo.svg";
 
 function Navbar() {
   const { isAuthenticated, logout } = useAuth();
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between w-full">
       {/* Logo / Título */}
-      <Link to="/" className="flex items-center space-x-2">
-        <img src={Logo} alt="Serena Logo" className="h-8 w-auto max-w-200px object-contain" />
-      </Link>
+      <a
+        href="https://proyectoserena.org"
+        className="flex items-center space-x-2"
+      >
+        <img
+          src={Logo}
+          alt="Serena Logo"
+          className="h-8 w-auto object-contain"
+        />
+      </a>
       {/* Menú */}
       <ul className="flex space-x-6 shrink-0">
         {isAuthenticated ? (

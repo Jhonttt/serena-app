@@ -13,10 +13,8 @@ function LoginPage() {
     if (isAuthenticated) navigate("/profile");
   }, [isAuthenticated])
   
-  const onSubmit = handleSubmit(values => {
-    signin(values);
-  });
-  
+  const onSubmit = handleSubmit((values) => signin(values));
+
   return (
     <div className="flex items-center justify-center h-[calc(100vh-64px)] bg-gray-100 px-4 w-full overflow-x-hidden">
       <div className="bg-white w-full max-w-lg p-12 rounded-2xl shadow-lg">

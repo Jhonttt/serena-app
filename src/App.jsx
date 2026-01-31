@@ -18,7 +18,7 @@ function App() {
         <Navbar />
         <main className="grow flex flex-col justify-center px-4 bg-gray-100">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<LoginPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route element={<ProtectedRoute />}>

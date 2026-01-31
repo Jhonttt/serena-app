@@ -2,48 +2,46 @@ import Card from "../components/ui/Card"
 
 export default function HomePage() {
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <section className="text-center py-20">
-        <h1 className="text-4xl font-bold text-primary">
-          Tu bienestar mental es nuestra prioridad
-        </h1>
-        <p className="mt-4 text-gray-600">
-          Un espacio seguro y tranquilo donde no estás solo.
-        </p>
+    <div className="bg-gray-50 min-h-screen p-6">
+      <div
+        className="max-w-7xl mx-auto px-10 rounded-2xl  border border-gray-200 bg-gradient-to-br from-blue-100 via-purple-100 to-rose-100"
+      >
+        <section className="text-primary py-7">
+          <h1 className="text-4xl font-semibold text-primary">
+            Buenos días, Usuario
+          </h1>
+          <p className="mt-4 text-gray-600">
+            Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
+          </p>
+        </section>
 
-        <div className="flex justify-center gap-4 mt-8">
-          <button
-            style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-          >
-            Buscar Ayuda Ahora
-          </button>
-          <button className="border px-6 py-3 rounded-lg">
-            Explorar Recursos
-          </button>
-        </div>
-      </section>
-
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 pb-20">
-        <Card
-          title="Confidencial"
-          text="Tu privacidad es fundamental y segura."
-        />
-        <Card
-          title="Apoyo Profesional"
-          text="Recursos creados por profesionales certificados."
-        />
-        <Card
-          title="Comunidad"
-          text="Forma parte de una red de apoyo segura."
-        />
-      </section>
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
+          <Card
+            title="12"
+            text="Sesiones Completadas"
+            titleSize="text-2xl"
+          />
+          <Card
+            title="15%"
+            text="Progreso General"
+            titleSize="text-2xl"
+          />
+          <Card
+            title="5"
+            text="Días de racha activa"
+            titleSize="text-2xl"
+          />
+        </section>
+      </div>
 
 
-      <div style={{ backgroundColor: "rgb(246, 248, 255)" }}>
+      <div
+        className="max-w-7xl mx-auto px-2 rounded-2xl p-6 m-6 border border-gray-200"
+        style={{ background: "rgb(253, 253, 253)" }}
+      >
         <section className="pl-8"> {/* pl-6 = padding-left */}
-          <h2 className="text-3xl font-semibold text-primary">
-            Recursos de Aprendizaje
-          </h2>
+          <h2 className="text-2xl font-medium text-primary">
+            Acceso Rápido          </h2>
           <p className="mt-4 text-gray-600">
             Explora materiales educativos y herramientas para tu bienestar
           </p>
@@ -54,10 +52,11 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 pb-20">
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 pb-10">
           <Card
-            title="Confidencial"
-            text="Tu privacidad es fundamental y segura."  >
+            title="Sesión de Terapia"
+            titleSize="text-lg"
+            text="Conecta con tu terapeuta"  >
             <button
               style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
             >
@@ -65,8 +64,9 @@ export default function HomePage() {
             </button>
           </Card>
           <Card
-            title="Confidencial"
-            text="Tu privacidad es fundamental y segura."  >
+            titleSize="text-lg"
+            title="Chatbot de apoyo"
+            text="Habla con un consejero"  >
             <button
               style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
             >
@@ -74,8 +74,9 @@ export default function HomePage() {
             </button>
           </Card>
           <Card
-            title="Confidencial"
-            text="Tu privacidad es fundamental y segura."  >
+            title="Meditación Guiada"
+            titleSize="text-lg"
+            text="Relájate y encuentra calma"  >
             <button
               style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
             >
@@ -83,8 +84,9 @@ export default function HomePage() {
             </button>
           </Card>
           <Card
-            title="Confidencial"
-            text="Tu privacidad es fundamental y segura."  >
+            title="Biblioteca de recursos"
+            titleSize="text-lg"
+            text="Artículos y material educativo" >
             <button
               style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
             >
@@ -92,8 +94,9 @@ export default function HomePage() {
             </button>
           </Card>
           <Card
-            title="Confidencial"
-            text="Tu privacidad es fundamental y segura."  >
+            title="Diario emocional"
+            titleSize="text-lg"
+            text="Registra tus sentimientos"  >
             <button
               style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
             >
@@ -101,8 +104,9 @@ export default function HomePage() {
             </button>
           </Card>
           <Card
-            title="Confidencial"
-            text="Tu privacidad es fundamental y segura."  >
+            title="Ejecicios prácticos"
+            titleSize="text-lg"
+            text="Técnicas de afrontamiento"  >
             <button
               style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
             >
@@ -114,6 +118,79 @@ export default function HomePage() {
 
       </div>
 
+      <div
+        className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
+        style={{ background: "rgb(253, 253, 253)" }}
+      >
+        <section className="text-primary py-7">
+          <h2 className="text-2xl font-semibold text-primary">
+            📈 Progreso
+          </h2>
+          <p className="mt-4 text-gray-600">
+            Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
+          </p>
+        </section>
+
+        <section className="grid grid-cols-1  gap-6 pb-10">
+          <Card
+            title="Técnicas de respiración"
+            text="9 de 10 completadas"
+            titleSize="text-2xl"
+          >
+            {/* Barra de progreso dentro del children */}
+            <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
+              <div
+                className="bg-pink-500 h-3 rounded-full"
+                style={{ width: `${(9 / 10) * 100}%` }}
+              ></div>
+            </div>
+            <p className="text-right text-sm text-gray-600 mt-1">90%</p>
+          </Card>
+
+          <Card
+            title="Diario de emociones"
+            text="14 de 20 completadas"
+            titleSize="text-2xl"
+          >
+            <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
+              <div
+                className="bg-blue-500 h-3 rounded-full"
+                style={{ width: `${(14 / 20) * 100}%` }}
+              ></div>
+            </div>
+            <p className="text-right text-sm text-gray-600 mt-1">70%</p>
+          </Card>
+
+          <Card
+            title="Meditación diaria"
+            text="14 de 20 completadas"
+            titleSize="text-2xl"
+          >
+            <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
+              <div
+                className="bg-purple-500 h-3 rounded-full"
+                style={{ width: `${(17 / 20) * 100}%` }}
+              ></div>
+            </div>
+            <p className="text-right text-sm text-gray-600 mt-1">85%</p>
+          </Card>
+
+        </section>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200 bg-gradient-to-br from-red-50 via-red-100 to-red-200"  >
+        <section className="text-primary py-7">
+          <h2 className="text-2xl font-semibold text-primary">
+            ¿Necesitas Ayuda Inmediata?
+          </h2>
+          <p className="mt-4 text-gray-600">
+            Si estás en crisis o necesitas apoyo urgente, estamos aquí para ti las 24 horas.
+          </p>
+          <button className="border border-red-200 mt-3 p-2 bg-red-300 rounded-lg">
+              📞 Linea de Crisis: 024
+            </button>
+        </section>
+      </div>
     </div>
 
   )

@@ -1,181 +1,259 @@
 import Card from "../components/ui/Card";
-import { useAuth } from "../context/AuthContext";
+
+import CardIcon from "../components/ui/CardIcon";
+import { useEffect, useState } from "react";
+import { getStudentProfile } from "../api/auth";
+import { getGreeting } from "../utils/greeting";
+import { getTimeIcon } from "../utils/timeIcon";
+import { FiVideo, FiMessageSquare, FiSmile, FiBookOpen, FiFileText, FiActivity, FiWind, FiAlertCircle, FiPhone } from "react-icons/fi";
+//Esta biblioteca nos permite hacer un enlace interno en react
+import { Link } from "react-router-dom";
+
 
 export default function HomePage() {
   const { isAdmin } = useAuth();
+  const [student, setStudent] = useState(null);
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const res = await getStudentProfile();
+        console.log(res.data); // Datos del estudiante
+        setStudent(res.data);
+      } catch (err) {
+        console.log("Error al obtener el estudiante:", err);
+      }
+    };
+
+    fetchStudent();
+  }, []);
+
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       <div
-        className="max-w-7xl mx-auto px-10 rounded-2xl  border border-gray-200 bg-linear-to-br from-blue-100 via-purple-100 to-rose-100"
+        className="max-w-7xl mx-auto px-10 rounded-2xl border border-gray-200 bg-linear-to-br from-blue-100 via-purple-100 to-rose-100"
       >
         <section className="text-primary py-7">
-          <h1 className="text-4xl font-semibold text-primary">
-            Buenos días, Usuario
-          </h1>
+          <div className="flex items-center gap-4">
+            {/* Icono dinámico, con tamaño grande */}
+            <div className="text-6xl">
+              {getTimeIcon()}
+            </div>
+
+            {/* Saludo + frase en dos líneas */}
+            <div>
+              <h1 className="text-4xl font-semibold text-primary">
+                {`${getGreeting()}, ${student?.first_name}`}
+              </h1>
+              <p className="mt-2 text-gray-600 text-lg">
+                Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
+          <Card title="12" text="Sesiones Completadas" titleSize="text-2xl" titleColor="#4db6ac" className="transition-transform duration-300 hover:scale-103" />
+          <Card title="15%" text="Progreso General" titleSize="text-2xl" titleColor="#64b5f6" className="transition-transform duration-300 hover:scale-103" />
+          <Card title="5" text="Días de racha activa" titleSize="text-2xl" titleColor="#ce93d8" className="transition-transform duration-300 hover:scale-103" />
+        </section>
+      </div>
+
+      <div
+        className="max-w-7xl mx-auto px-2 rounded-2xl p-6 m-6 border border-gray-200"
+        style={{ background: "rgb(253, 253, 253)" }}
+      >
+        <section className="pl-8">
+          <h2 className="text-2xl font-medium text-primary">Acceso Rápido</h2>
+          <p className="mt-4 text-gray-600">
+            Explora materiales educativos y herramientas para tu bienestar
+          </p>
+
+          <div className="flex justify-center gap-4 mt-8"></div>
+        </section>
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 pb-10">
+          {/* Sesión de terapia */}
+          <CardIcon
+            className="hover:scale-105 hover:bg-[#f4fafe] transition-colors"
+            title="Sesión de terapia"
+            text="Contacta con tu terapeuta"
+            titleSize="text-lg"
+            iconButton={
+              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#e3f2fd" }}>
+                <FiVideo size={20} color="#1e3a8a" /> {/* Azul contraste */}
+              </button>
+            }
+          />
+
+          {/* Chatbot de apoyo */}
+          <CardIcon
+            title="Chatbot de apoyo"
+            titleSize="text-lg"
+            text="Habla con un consejero"
+            className="relative p-6 rounded-xl bg-white/50 hover:bg-[#edf8f7] hover:scale-105 transition-all"
+            iconButton={
+              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#e0f2f1" }}>
+                <FiMessageSquare size={20} color="#00695c" /> {/* Verde contraste */}
+              </button>
+            }
+          />
+
+          {/* Meditación Guiada */}
+          <CardIcon
+            title="Meditación Guiada"
+            titleSize="text-lg"
+            text="Relájate y encuentra calma"
+            className="relative p-6 rounded-xl bg-white/50 hover:bg-[#faf4fb] hover:scale-105 transition-all"
+            iconButton={
+              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#f3e5f5" }}>
+                <FiSmile size={20} color="#6a1b9a" /> {/* Morado contraste */}
+              </button>
+            }
+          />
+
+          {/* Biblioteca de recursos */}
+          <CardIcon
+            title="Biblioteca de recursos"
+            titleSize="text-lg"
+            text="Artículos y material educativo"
+            className="relative p-6 rounded-xl bg-white/50 hover:bg-[#fff8ed] hover:scale-105 transition-all"
+            iconButton={
+              <Link
+                to="/Resources" // Ruta interna a tu página resources
+                className="p-2 rounded-2xl bg-[#fff3e0] inline-flex items-center justify-center transition-transform duration-200 hover:scale-105"
+              >
+                <FiBookOpen size={20} color="#e65100" /> {/* Icono Naranja contraste */}
+              </Link>
+            }
+          />
+
+          {/* Diario emocional */}
+          <CardIcon
+            title="Diario emocional"
+            titleSize="text-lg"
+            text="Registra tus sentimientos"
+            className="relative p-6 rounded-xl bg-white/50 hover:bg-[#f2f9f2] hover:scale-105 transition-all"
+            iconButton={
+              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#e8f5e9" }}>
+                <FiFileText size={20} color="#2e7d32" /> {/* Verde contraste */}
+              </button>
+            }
+          />
+
+          {/* Ejercicios prácticos */}
+          <CardIcon
+            title="Ejercicios prácticos"
+            titleSize="text-lg"
+            text="Técnicas de afrontamiento"
+            className="relative p-6 rounded-xl bg-white/50 hover:bg-[#fdeff4] hover:scale-105 transition-all"
+            iconButton={
+              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#fce4ec" }}>
+                <FiActivity size={20} color="#c2185b" /> {/* Rosa contraste */}
+              </button>
+            }
+          />
+        </section>
+
+      </div>
+
+      <div
+        className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
+        style={{ background: "rgb(253, 253, 253)" }}
+      >
+        <section className="text-primary py-7">
+          {/* Sección de progreso con icono verde */}
+          <div className="flex items-center gap-2">
+            {/* Icono verde */}
+            <FiActivity size={28} color="#22c55e" /> {/* Verde brillante */}
+            <h2 className="text-2xl font-semibold text-primary">Progreso</h2>
+          </div>
+
           <p className="mt-4 text-gray-600">
             Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
           </p>
         </section>
 
-          <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
-            <Card title="12" text="Sesiones Completadas" titleSize="text-2xl" />
-            <Card title="15%" text="Progreso General" titleSize="text-2xl" />
-            <Card title="5" text="Días de racha activa" titleSize="text-2xl" />
-          </section>
-        </div>
 
-        <div
-          className="max-w-7xl mx-auto px-2 rounded-2xl p-6 m-6 border border-gray-200"
-          style={{ background: "rgb(253, 253, 253)" }}
-        >
-          <section className="pl-8">
-            {" "}
-            {/* pl-6 = padding-left */}
-            <h2 className="text-2xl font-medium text-primary">
-              Acceso Rápido{" "}
-            </h2>
-            <p className="mt-4 text-gray-600">
-              Explora materiales educativos y herramientas para tu bienestar
-            </p>
-            <div className="flex justify-center gap-4 mt-8"></div>
-          </section>
-
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 pb-10">
+        <section className="grid grid-cols-1 gap-6 pb-10">
+          {/* Técnicas de respiración */}
           <Card
-            title="Sesión de Terapia"
-            titleSize="text-lg"
-            text="Conecta con tu terapeuta"  >
-            <button
-              style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-            >
-              Acceder al recurso
-            </button>
-          </Card>
-          <Card
-            titleSize="text-lg"
-            title="Chatbot de apoyo"
-            text="Habla con un consejero"  >
-            <button
-              style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-            >
-              Acceder al recurso
-            </button>
-          </Card>
-          <Card
-            title="Meditación Guiada"
-            titleSize="text-lg"
-            text="Relájate y encuentra calma"  >
-            <button
-              style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-            >
-              Acceder al recurso
-            </button>
-          </Card>
-          <Card
-            title="Biblioteca de recursos"
-            titleSize="text-lg"
-            text="Artículos y material educativo" >
-            <button
-              style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-            >
-              Acceder al recurso
-            </button>
-          </Card>
-          <Card
-            title="Diario emocional"
-            titleSize="text-lg"
-            text="Registra tus sentimientos"  >
-            <button
-              style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-            >
-              Acceder al recurso
-            </button>
-          </Card>
-          <Card
-            title="Ejercicios prácticos"
-            titleSize="text-lg"
-            text="Técnicas de afrontamiento"  >
-            <button
-              style={{ backgroundColor: "#7C3AED", color: "white", padding: "0.75rem 1.5rem", borderRadius: "0.5rem", border: "none" }}
-            >
-              Acceder al recurso
-            </button>
+            title={
+              <div className="flex items-center gap-2">
+                <FiWind size={24} color="#ec4899" /> {/* Icono rosa para contraste */}
+                Técnicas de respiración
+              </div>
+            }
+            text="9 de 10 completadas"
+            titleSize="text-2xl"
+          >
+            <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
+              <div className="bg-pink-500 h-3 rounded-full" style={{ width: `${(9 / 10) * 100}%` }}></div>
+            </div>
+            <p className="text-right text-sm text-gray-600 mt-1">90%</p>
           </Card>
 
+          {/* Diario de emociones */}
+          <Card
+            title={
+              <div className="flex items-center gap-2">
+                <FiFileText size={24} color="#2563eb" /> {/* Azul para contraste */}
+                Diario de emociones
+              </div>
+            }
+            text="14 de 20 completadas"
+            titleSize="text-2xl"
+          >
+            <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
+              <div className="bg-blue-500 h-3 rounded-full" style={{ width: `${(14 / 20) * 100}%` }}></div>
+            </div>
+            <p className="text-right text-sm text-gray-600 mt-1">70%</p>
+          </Card>
+
+          {/* Meditación diaria */}
+          <Card
+            title={
+              <div className="flex items-center gap-2">
+                <FiSmile size={24} color="#7c3aed" /> {/* Morado para contraste */}
+                Meditación diaria
+              </div>
+            }
+            text="17 de 20 completadas"
+            titleSize="text-2xl"
+          >
+            <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
+              <div className="bg-purple-500 h-3 rounded-full" style={{ width: `${(17 / 20) * 100}%` }}></div>
+            </div>
+            <p className="text-right text-sm text-gray-600 mt-1">85%</p>
+          </Card>
         </section>
-
       </div>
 
-        <div
-          className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
-          style={{ background: "rgb(253, 253, 253)" }}
-        >
-          <section className="text-primary py-7">
-            <h2 className="text-2xl font-semibold text-primary">📈 Progreso</h2>
-            <p className="mt-4 text-gray-600">
-              Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
-            </p>
-          </section>
+      <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-red-300 bg-linear-to-br from-red-50 via-red-100 to-red-200">
 
-          <section className="grid grid-cols-1  gap-6 pb-10">
-            <Card
-              title="Técnicas de respiración"
-              text="9 de 10 completadas"
-              titleSize="text-2xl"
-            >
-              {/* Barra de progreso dentro del children */}
-              <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
-                <div
-                  className="bg-pink-500 h-3 rounded-full"
-                  style={{ width: `${(9 / 10) * 100}%` }}
-                ></div>
-              </div>
-              <p className="text-right text-sm text-gray-600 mt-1">90%</p>
-            </Card>
-
-            <Card
-              title="Diario de emociones"
-              text="14 de 20 completadas"
-              titleSize="text-2xl"
-            >
-              <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
-                <div
-                  className="bg-blue-500 h-3 rounded-full"
-                  style={{ width: `${(14 / 20) * 100}%` }}
-                ></div>
-              </div>
-              <p className="text-right text-sm text-gray-600 mt-1">70%</p>
-            </Card>
-
-            <Card
-              title="Meditación diaria"
-              text="14 de 20 completadas"
-              titleSize="text-2xl"
-            >
-              <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
-                <div
-                  className="bg-purple-500 h-3 rounded-full"
-                  style={{ width: `${(17 / 20) * 100}%` }}
-                ></div>
-              </div>
-              <p className="text-right text-sm text-gray-600 mt-1">85%</p>
-            </Card>
-          </section>
-        </div>
-
-      <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200 bg-linear-to-br from-red-50 via-red-100 to-red-200"  >
         <section className="text-primary py-7">
-          <h2 className="text-2xl font-semibold text-primary">
-            ¿Necesitas Ayuda Inmediata?
-          </h2>
+          <div className="flex items-center gap-2">
+            <FiAlertCircle size={24} color="#dc2626" /> {/* Icono informativo rojo */}
+            <h2 className="text-2xl font-semibold text-primary">
+              ¿Necesitas Ayuda Inmediata?
+            </h2>
+          </div>
           <p className="mt-4 text-gray-600">
             Si estás en crisis o necesitas apoyo urgente, estamos aquí para ti las 24 horas.
           </p>
-          <button className="border border-red-200 mt-3 p-2 bg-red-300 rounded-lg">
-              📞 Linea de Crisis: 024
-            </button>
-          </section>
-        </div>
+
+          {/* Botón funcional con icono de teléfono blanco y hover */}
+          <a
+            href="https://www.sanidad.gob.es/linea024/home.htm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 p-2 bg-red-500 rounded-lg inline-flex items-center gap-2 text-white font-semibold transition-transform duration-200 hover:scale-105"
+          >
+            <FiPhone size={20} color="white" /> {/* Icono de teléfono */}
+            Línea de Crisis: 024
+          </a>
+        </section>
       </div>
+    </div>
+
   );
 }

@@ -9,6 +9,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Resources from "./pages/Resources";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/home" element={<HomePage />} />
               <Route path="/profile" element={<ProfilePage />} />
+               <Route path="/resources" element={<Resources />} /> 
             </Route>
           </Routes>
         </main>

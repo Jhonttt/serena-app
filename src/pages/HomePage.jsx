@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 
 
 export default function HomePage() {
-  const { isAdmin } = useAuth();
   const [student, setStudent] = useState(null);
 
   useEffect(() => {

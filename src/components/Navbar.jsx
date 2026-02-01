@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Logo from "../assets/logo.svg";
+import IconoSubida from "../assets/IconoSubida.svg";
 
 function Navbar() {
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, isAdmin, loading } = useAuth();
+  if (loading) return null;
+
+  console.log(isAdmin);
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between w-full">
       {/* Logo / Título */}
@@ -18,13 +22,31 @@ function Navbar() {
         />
       </a>
       {/* Menú */}
-      <ul className="flex space-x-6 shrink-0">
+      <ul className="flex space-x-3 shrink-0">
         {isAuthenticated ? (
           <>
+            {isAdmin && (
+              <li>
+                <Link
+                  // to="/upload"
+                  to="/profile" // Temporal
+                  className="rounded-full px-4 py-2
+                bg-purple-600 text-white font-medium hover:bg-blue-500 transition-colors duration-200 flex items-center gap-2"
+                >
+                  <img
+                    src={IconoSubida}
+                    alt="Icono de Subida"
+                    className="h-5 w-5"
+                  />
+                  Subir archivos
+                </Link>
+              </li>
+            )}
             <li>
               <Link
                 to="/profile"
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                className="squared-full px-4 py-2
+                bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
               >
                 Menú
               </Link>
@@ -35,7 +57,8 @@ function Navbar() {
                 onClick={() => {
                   logout();
                 }}
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                className="squared-full px-4 py-2
+                bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
               >
                 Salir
               </Link>
@@ -46,7 +69,8 @@ function Navbar() {
             <li>
               <Link
                 to="/login"
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                className="squared-full px-4 py-2
+                bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
               >
                 Login
               </Link>
@@ -54,7 +78,8 @@ function Navbar() {
             <li>
               <Link
                 to="/register"
-                className="text-gray-700 hover:text-blue-600 transition-colors duration-200 font-medium"
+                className="squared-full px-4 py-2
+                bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
               >
                 Register
               </Link>

@@ -1,4 +1,5 @@
 import Card from "../components/ui/Card";
+
 import CardIcon from "../components/ui/CardIcon";
 import { useEffect, useState } from "react";
 import { getStudentProfile } from "../api/auth";
@@ -69,9 +70,6 @@ export default function HomePage() {
 
           <div className="flex justify-center gap-4 mt-8"></div>
         </section>
-
-
-
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-8 pb-10">
           {/* Sesión de terapia */}
           <CardIcon
@@ -255,5 +253,6 @@ export default function HomePage() {
         </section>
       </div>
     </div>
+
   );
 }

@@ -22,6 +22,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route element={<ProtectedRoute />}>
+              <Route path="/home" element={<HomePage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Routes>

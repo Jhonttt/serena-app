@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <div className="bg-gray-50 min-h-screen p-6">
       <div
-        className="max-w-7xl mx-auto px-10 rounded-2xl  border border-gray-200 bg-gradient-to-br from-blue-100 via-purple-100 to-rose-100"
+        className="max-w-7xl mx-auto px-10 rounded-2xl  border border-gray-200 bg-linear-to-br from-blue-100 via-purple-100 to-rose-100"
       >
         <section className="text-primary py-7">
           <h1 className="text-4xl font-semibold text-primary">
@@ -104,7 +104,7 @@ export default function HomePage() {
             </button>
           </Card>
           <Card
-            title="Ejecicios prácticos"
+            title="Ejercicios prácticos"
             titleSize="text-lg"
             text="Técnicas de afrontamiento"  >
             <button
@@ -178,7 +178,7 @@ export default function HomePage() {
         </section>
       </div>
 
-      <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200 bg-gradient-to-br from-red-50 via-red-100 to-red-200"  >
+      <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200 bg-linear-to-br from-red-50 via-red-100 to-red-200"  >
         <section className="text-primary py-7">
           <h2 className="text-2xl font-semibold text-primary">
             ¿Necesitas Ayuda Inmediata?

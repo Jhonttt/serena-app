@@ -33,7 +33,7 @@ function RegisterPage() {
 
   // redirección si autenticado
   useEffect(() => {
-    if (isAuthenticated) navigate("/profile");
+    if (isAuthenticated) navigate("/home");
   }, [isAuthenticated]);
 
   // calcular edad SOLO para UI

@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function RegisterPage() {
@@ -8,16 +8,28 @@ function RegisterPage() {
     register,
     handleSubmit,
     watch,
+    setFocus,
     formState: { errors },
   } = useForm();
 
   const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
+  const errorTopRef = useRef(null);
 
   const [mostrarTutor, setMostrarTutor] = useState(false);
 
   // observar fecha nacimiento
   const birthDay = watch("birth_day");
+
+  const onError = (formErrors) => {
+    const firstField = Object.keys(formErrors)[0];
+
+    setFocus(firstField);
+
+    document
+      .querySelector(`[name="${firstField}"]`)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   // redirección si autenticado
   useEffect(() => {
@@ -44,14 +56,30 @@ function RegisterPage() {
     setMostrarTutor(edad < 18);
   }, [birthDay]);
 
-  const onSubmit = handleSubmit((values) => signup(values));
+  useEffect(() => {
+    if (registerErrors?.length) {
+      errorTopRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [registerErrors]);
+
+  // Fecha mínima permitida (120 años atrás)
+  const minBirthDate = new Date();
+  minBirthDate.setFullYear(minBirthDate.getFullYear() - 110);
+  const minDateStr = minBirthDate.toISOString().split("T")[0];
+
+  const onSubmit = handleSubmit((values) => signup(values), onError);
 
   return (
     <div className="flex justify-center w-full">
-      <div className="bg-white w-full max-w-lg p-10 rounded-2xl shadow-lg my-12">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-          Registrarse
-        </h1>
+      <div className="bg-white w-full max-w-lg p-10 rounded-2xl shadow-lg my-18">
+        <div ref={errorTopRef}>
+          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+            Registrarse
+          </h1>
+        </div>
 
         {/* Errores de registro */}
         {Array.isArray(registerErrors) &&
@@ -102,6 +130,7 @@ function RegisterPage() {
             <input
               type="date"
               max={new Date().toISOString().split("T")[0]}
+              min={minDateStr}
               {...register("birth_day", { required: true })}
               className="border border-gray-300 rounded-lg px-3 py-2"
             />

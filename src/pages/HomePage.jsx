@@ -2,7 +2,22 @@ import Card from "../components/ui/Card";
 import { useAuth } from "../context/AuthContext";
 
 export default function HomePage() {
-  const { isAdmin } = useAuth();
+  const [student, setStudent] = useState(null);
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const res = await getStudentProfile();
+        console.log(res.data); // Datos del estudiante
+        setStudent(res.data);
+      } catch (err) {
+        console.log("Error al obtener el estudiante:", err);
+      }
+    };
+
+    fetchStudent();
+  }, []);
+
   return (
     <>
       {/* {isAdmin && ( MOVER ABAJO

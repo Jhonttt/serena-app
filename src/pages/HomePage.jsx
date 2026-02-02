@@ -1,17 +1,14 @@
 import Card from "../components/ui/Card";
-
 import CardIcon from "../components/ui/CardIcon";
 import { useEffect, useState } from "react";
 import { getStudentProfile } from "../api/auth";
 import { getGreeting } from "../utils/greeting";
 import { getTimeIcon } from "../utils/timeIcon";
-import { FiVideo, FiMessageSquare, FiSmile, FiBookOpen, FiFileText, FiActivity, FiWind, FiAlertCircle, FiPhone } from "react-icons/fi";
+import { FiVideo, FiMessageSquare, FiSmile, FiBookOpen, FiFileText, FiActivity, FiWind, FiAlertCircle, FiPhone, FiThumbsUp, FiMeh, FiFrown } from "react-icons/fi";
 //Esta biblioteca nos permite hacer un enlace interno en react
 import { Link } from "react-router-dom";
 
-
 export default function HomePage() {
-  const { isAdmin } = useAuth();
   const [student, setStudent] = useState(null);
 
   useEffect(() => {
@@ -43,7 +40,7 @@ export default function HomePage() {
             {/* Saludo + frase en dos líneas */}
             <div>
               <h1 className="text-4xl font-semibold text-primary">
-                {`${getGreeting()}, ${student?.first_name}`}
+                {`${getGreeting()}, ${student?.first_name || 'bienvenido/a a Serena'}`}
               </h1>
               <p className="mt-2 text-gray-600 text-lg">
                 Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
@@ -112,20 +109,21 @@ export default function HomePage() {
           />
 
           {/* Biblioteca de recursos */}
-          <CardIcon
-            title="Biblioteca de recursos"
-            titleSize="text-lg"
-            text="Artículos y material educativo"
-            className="relative p-6 rounded-xl bg-white/50 hover:bg-[#fff8ed] hover:scale-105 transition-all"
-            iconButton={
-              <Link
-                to="/Resources" // Ruta interna a tu página resources
-                className="p-2 rounded-2xl bg-[#fff3e0] inline-flex items-center justify-center transition-transform duration-200 hover:scale-105"
-              >
-                <FiBookOpen size={20} color="#e65100" /> {/* Icono Naranja contraste */}
-              </Link>
-            }
-          />
+          <Link to="/resources" className="block">
+            <CardIcon
+              title="Biblioteca de recursos"
+              titleSize="text-lg"
+              text="Artículos y material educativo"
+              className="relative p-6 rounded-xl bg-white/50 hover:bg-[#fff8ed] hover:scale-105 transition-all cursor-pointer"
+              iconButton={
+                <div
+                  className="p-2 rounded-2xl bg-[#fff3e0] inline-flex items-center justify-center"
+                >
+                  <FiBookOpen size={20} color="#e65100" />
+                </div>
+              }
+            />
+          </Link>
 
           {/* Diario emocional */}
           <CardIcon
@@ -155,10 +153,48 @@ export default function HomePage() {
         </section>
 
       </div>
+      <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
+        style={{ background: "rgb(253, 253, 253)" }}>
+        <h2 className="text-2xl font-semibold text-primary mt-5 pb-4">¿Cómo te sientes hoy?</h2>
+
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-10 mt-5">
+          {/* Muy bien */}
+          <button
+            className="flex flex-col items-center justify-center pt-3 pb-3 rounded-xl bg-green-100 hover:bg-green-200 hover:scale-105 transition-all">
+            <FiSmile size={20} className="text-green-700" />
+            <span className="font-medium text-gray-700">Muy bien</span>
+          </button>
+
+          {/* Bien */}
+          <button
+            className="flex flex-col items-center justify-center p-1 rounded-xl bg-blue-100 hover:bg-blue-200 hover:scale-105 transition-all ">
+            <FiThumbsUp size={20} className="text-blue-700" />
+            <span className="font-medium text-gray-700">Bien</span>
+          </button>
+
+          {/* Normal */}
+          <button
+            className=" flex flex-col items-center justify-center p-1 rounded-xl bg-purple-100 hover:bg-purple-200 hover:scale-105 transition-all">
+            <FiMeh size={20} className="text-purple-700" />
+            <span className="font-medium text-gray-700">Normal</span>
+          </button>
+
+          {/* No muy bien */}
+          <button
+            className="flex flex-col items-center justify-center p-1 rounded-xl bg-red-100 hover:bg-red-200 hover:scale-105 transition-all">
+            <FiFrown size={20} className="text-red-700" />
+            <span className="font-medium text-gray-700">No muy bien</span>
+          </button>
+        </section>
+            <p className="text-gray-600 mb-5 text-center text-sm">
+              Registrar tu estado de ánimo nos ayuda a brindarte mejor apoyo
+            </p>
+      </div>
 
       <div
-        className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
+        className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-1 border border-gray-200"
         style={{ background: "rgb(253, 253, 253)" }}
+
       >
         <section className="text-primary py-7">
           {/* Sección de progreso con icono verde */}
@@ -167,12 +203,7 @@ export default function HomePage() {
             <FiActivity size={28} color="#22c55e" /> {/* Verde brillante */}
             <h2 className="text-2xl font-semibold text-primary">Progreso</h2>
           </div>
-
-          <p className="mt-4 text-gray-600">
-            Nos alegra verte de nuevo. ¿Cómo te sientes hoy?
-          </p>
         </section>
-
 
         <section className="grid grid-cols-1 gap-6 pb-10">
           {/* Técnicas de respiración */}

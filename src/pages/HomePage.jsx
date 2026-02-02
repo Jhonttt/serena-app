@@ -1,6 +1,4 @@
-import Card from "../components/ui/Card";
-
-import CardIcon from "../components/ui/CardIcon";
+import { Card, CardIcon } from "../components/ui";
 import { useEffect, useState } from "react";
 import { getStudentProfile } from "../api/auth";
 import { getGreeting } from "../utils/greeting";

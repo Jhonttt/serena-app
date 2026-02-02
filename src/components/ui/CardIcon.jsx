@@ -1,4 +1,4 @@
-export default function CardIcon({ title, text, children, titleSize = "text-xl", titleColor, className, iconButton }) {
+export function CardIcon({ title, text, children, titleSize = "text-xl", titleColor, className, iconButton }) {
   return (
     <div
       // Tarjeta relativa para posicionar elementos absolutos dentro

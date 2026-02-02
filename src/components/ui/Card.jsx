@@ -1,4 +1,4 @@
-export default function Card({ title, text, children, titleSize = "text-xl", titleColor, className }) {
+export function Card({ title, text, children, titleSize = "text-xl", titleColor, className }) {
   return (
     <div
       // Hacemos la tarjeta relative para poder posicionar elementos absolutos dentro

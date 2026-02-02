@@ -2,13 +2,16 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FormRegisterInput, FormRegisterSelect } from "../components/ui";
 
 function RegisterPage() {
   const {
     register,
     handleSubmit,
     watch,
+    control,
     setFocus,
+    unregister,
     formState: { errors },
   } = useForm();
 
@@ -65,6 +68,29 @@ function RegisterPage() {
     }
   }, [registerErrors]);
 
+  useEffect(() => {
+  if (!birthDay) return;
+
+  const hoy = new Date();
+  const nacimiento = new Date(birthDay);
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+  const mesDiff = hoy.getMonth() - nacimiento.getMonth();
+
+  if (mesDiff < 0 || (mesDiff === 0 && hoy.getDate() < nacimiento.getDate())) {
+    edad--;
+  }
+
+  const esMenor = edad < 18;
+  setMostrarTutor(esMenor);
+
+  // SI NO ES MENOR, eliminamos los campos del registro y sus errores
+  if (!esMenor) {
+    unregister("full_name");
+    unregister("phone");
+    unregister("relationship");
+  }
+}, [birthDay, unregister]);
+
   // Fecha mínima permitida (120 años atrás)
   const minBirthDate = new Date();
   minBirthDate.setFullYear(minBirthDate.getFullYear() - 110);
@@ -91,99 +117,84 @@ function RegisterPage() {
 
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           {/* Nombre */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Nombre</label>
-            <input
-              type="text"
-              {...register("first_name", { required: true })}
-              placeholder="Juan"
-              className="border border-gray-300 rounded-lg px-3 py-2"
-            />
-            {errors.first_name && (
-              <p className="text-red-500 text-sm">El nombre es obligatorio</p>
-            )}
-          </div>
+          <FormRegisterInput
+            label="Nombre"
+            name="first_name"
+            register={register}
+            rules={{ required: true }}
+            errors={errors}
+            placeholder="Juan"
+            errorMessage="El nombre es obligatorio"
+          />
 
           {/* Apellido */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Apellidos
-            </label>
-            <input
-              type="text"
-              {...register("last_name", { required: true })}
-              placeholder="Pérez García"
-              className="border border-gray-300 rounded-lg px-3 py-2"
-            />
-            {errors.last_name && (
-              <p className="text-red-500 text-sm">
-                Los apellidos son obligatorios
-              </p>
-            )}
-          </div>
+          <FormRegisterInput
+            label="Apellidos"
+            name="last_name"
+            register={register}
+            rules={{ required: true }}
+            errors={errors}
+            placeholder="Pérez García"
+            errorMessage="Los apellidos son obligatorios"
+          />
 
           {/* Fecha nacimiento */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Fecha de nacimiento
-            </label>
-            <input
-              type="date"
-              max={new Date().toISOString().split("T")[0]}
-              min={minDateStr}
-              {...register("birth_day", { required: true })}
-              className="border border-gray-300 rounded-lg px-3 py-2"
-            />
-            {errors.birth_day && (
-              <p className="text-red-500 text-sm">La fecha es obligatoria</p>
-            )}
-          </div>
+          <FormRegisterInput
+            label="Fecha de nacimiento"
+            name="birth_day"
+            type="date"
+            register={register}
+            rules={{ required: true }}
+            errors={errors}
+            inputProps={{
+              max: new Date().toISOString().split("T")[0],
+              min: minDateStr,
+            }}
+            errorMessage="La fecha es obligatoria"
+          />
 
           {/* Nivel educativo */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Nivel educativo
-            </label>
-            <input
-              type="text"
-              {...register("education_level", { required: true })}
-              placeholder="Ej: Secundaria, Universidad"
-              className="border border-gray-300 rounded-lg px-3 py-2"
-            />
-            {errors.education_level && (
-              <p className="text-red-500 text-sm">
-                El nivel educativo es obligatorio
-              </p>
-            )}
-          </div>
+          <FormRegisterSelect
+            label="Nivel educativo"
+            name="education_level"
+            control={control}
+            register={register}
+            rules={{ required: true }}
+            errors={errors}
+            placeholder="Selecciona un nivel educativo"
+            errorMessage="El nivel educativo es obligatorio"
+            options={[
+              { value: "primaria", label: "Primaria" },
+              { value: "secundaria", label: "Secundaria" },
+              { value: "bachillerato", label: "Bachillerato" },
+              { value: "universidad", label: "Universidad" },
+              { value: "otro", label: "Otro" },
+            ]}
+          />
+
           {/* Email */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              {...register("email", { required: true })}
-              placeholder="correo@ejemplo.com"
-              className="border border-gray-300 rounded-lg px-3 py-2"
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm">El email es obligatorio</p>
-            )}
-          </div>
+          <FormRegisterInput
+            label="Email"
+            name="email"
+            type="email"
+            register={register}
+            rules={{ required: true }}
+            errors={errors}
+            placeholder="correo@ejemplo.com"
+            errorMessage="El email es obligatorio"
+          />
+
           {/* Contraseña */}
-          <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              {...register("password", { required: true })}
-              placeholder="••••••••"
-              className="border border-gray-300 rounded-lg px-3 py-2"
-            />
-            {errors.password && (
-              <p className="text-red-500 text-sm">Contraseña obligatoria</p>
-            )}
-          </div>
+          <FormRegisterInput
+            label="Contraseña"
+            name="password"
+            type="password"
+            register={register}
+            rules={{ required: true }}
+            errors={errors}
+            placeholder="••••••••"
+            errorMessage="Contraseña obligatoria"
+          />
 
           {/* Campos tutor SOLO si menor */}
           {mostrarTutor && (
@@ -191,52 +202,47 @@ function RegisterPage() {
               <h2 className="text-lg font-semibold mt-4">Datos del tutor</h2>
 
               {/* Nombre del tutor completo */}
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">
-                  Nombre completo
-                </label>
-                <input
-                  type="text"
-                  placeholder="Luis Garcia Lopez"
-                  {...register("full_name", { required: mostrarTutor })}
-                  className="border border-gray-300 rounded-lg px-3 py-2"
-                />
-                {errors.full_name && (
-                  <p className="text-red-500 text-sm">
-                    Nombre del tutor obligatorio
-                  </p>
-                )}
-              </div>
-              {/* Contraseña */}
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">
-                  Teléfono
-                </label>
-                <input
-                  type="text"
-                  placeholder="Teléfono"
-                  {...register("phone", { required: mostrarTutor })}
-                  className="border border-gray-300 rounded-lg px-3 py-2"
-                />
-                {errors.phone && (
-                  <p className="text-red-500 text-sm">Teléfono obligatorio</p>
-                )}
-              </div>
-              {/* Contraseña */}
-              <div className="flex flex-col gap-1">
-                <label className="text-sm font-medium text-gray-700">
-                  Parentesco
-                </label>
-                <input
-                  type="text"
-                  placeholder="Parentesco"
-                  {...register("relationship", { required: mostrarTutor })}
-                  className="border border-gray-300 rounded-lg px-3 py-2"
-                />
-                {errors.relationship && (
-                  <p className="text-red-500 text-sm">Parentesco obligatorio</p>
-                )}
-              </div>
+              <FormRegisterInput
+                label="Nombre completo"
+                name="full_name"
+                register={register}
+                rules={{ required: mostrarTutor }}
+                errors={errors}
+                placeholder="Luis Garcia Lopez"
+                errorMessage="Nombre del tutor obligatorio"
+              />
+
+              {/* Teléfono */}
+              <FormRegisterInput
+                label="Teléfono"
+                name="phone"
+                type="tel"
+                register={register}
+                rules={{ required: mostrarTutor }}
+                errors={errors}
+                placeholder="+34 600 123 456"
+                errorMessage="Teléfono obligatorio"
+              />
+
+              {/* Parentesco */}
+              <FormRegisterSelect
+                label="Parentesco"
+                name="relationship"
+                control={control}
+                register={register}
+                rules={{ required: mostrarTutor }}
+                errors={errors}
+                placeholder="Selecciona un parentesco"
+                errorMessage="El parentesco es obligatorio"
+                options={[
+                  { value: "padre", label: "Padre" },
+                  { value: "madre", label: "Madre" },
+                  { value: "tutor_legal", label: "Tutor Legal" },
+                  { value: "abuelo", label: "Abuelo/a" },
+                  { value: "hermano_mayor", label: "Hermano/a Mayor" },
+                  { value: "otro", label: "Otro" },
+                ]}
+              />
             </>
           )}
 

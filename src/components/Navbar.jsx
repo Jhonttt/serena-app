@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Logo from "../assets/logo.svg";
-import IconoSubida from "../assets/IconoSubida.svg";
+import { FiUpload } from "react-icons/fi";
 
 function Navbar() {
   const { isAuthenticated, logout, isAdmin, loading } = useAuth();
@@ -33,11 +33,7 @@ function Navbar() {
                   className="rounded-full px-4 py-2
                 bg-purple-600 text-white font-medium hover:bg-blue-500 transition-colors duration-200 flex items-center gap-2"
                 >
-                  <img
-                    src={IconoSubida}
-                    alt="Icono de Subida"
-                    className="h-5 w-5"
-                  />
+                  <FiUpload size={20} color="#ffffff" />
                   Subir archivos
                 </Link>
               </li>
@@ -48,7 +44,16 @@ function Navbar() {
                 className="squared-full px-4 py-2
                 bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
               >
-                Menú
+                Perfil
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/home"
+                className="squared-full px-4 py-2
+                bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
+              >
+                Inicio
               </Link>
             </li>
             <li>
@@ -58,9 +63,9 @@ function Navbar() {
                   logout();
                 }}
                 className="squared-full px-4 py-2
-                bg-blue-500 text-white font-medium hover:bg-purple-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
+                bg-red-500 text-white font-medium hover:bg-red-700 transition-colors duration-200 flex items-center gap-2 rounded-lg"
               >
-                Salir
+                Cerrar sesión
               </Link>
             </li>
           </>

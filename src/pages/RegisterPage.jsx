@@ -2,7 +2,11 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FormRegisterInput, FormRegisterSelect } from "../components/ui";
+import {
+  FormRegisterInput,
+  FormRegisterSelect,
+  FormRegisterTextArea,
+} from "../components/ui";
 
 function RegisterPage() {
   const {
@@ -69,27 +73,30 @@ function RegisterPage() {
   }, [registerErrors]);
 
   useEffect(() => {
-  if (!birthDay) return;
+    if (!birthDay) return;
 
-  const hoy = new Date();
-  const nacimiento = new Date(birthDay);
-  let edad = hoy.getFullYear() - nacimiento.getFullYear();
-  const mesDiff = hoy.getMonth() - nacimiento.getMonth();
+    const hoy = new Date();
+    const nacimiento = new Date(birthDay);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const mesDiff = hoy.getMonth() - nacimiento.getMonth();
 
-  if (mesDiff < 0 || (mesDiff === 0 && hoy.getDate() < nacimiento.getDate())) {
-    edad--;
-  }
+    if (
+      mesDiff < 0 ||
+      (mesDiff === 0 && hoy.getDate() < nacimiento.getDate())
+    ) {
+      edad--;
+    }
 
-  const esMenor = edad < 18;
-  setMostrarTutor(esMenor);
+    const esMenor = edad < 18;
+    setMostrarTutor(esMenor);
 
-  // SI NO ES MENOR, eliminamos los campos del registro y sus errores
-  if (!esMenor) {
-    unregister("full_name");
-    unregister("phone");
-    unregister("relationship");
-  }
-}, [birthDay, unregister]);
+    // SI NO ES MENOR, eliminamos los campos del registro y sus errores
+    if (!esMenor) {
+      unregister("full_name");
+      unregister("phone");
+      unregister("relationship");
+    }
+  }, [birthDay, unregister]);
 
   // Fecha mínima permitida (120 años atrás)
   const minBirthDate = new Date();
@@ -194,6 +201,15 @@ function RegisterPage() {
             errors={errors}
             placeholder="••••••••"
             errorMessage="Contraseña obligatoria"
+          />
+
+          <FormRegisterTextArea
+            label="Describa el motivo de su consulta o problema (Opcional)"
+            name="psychological_issue"
+            register={register}
+            rules={{ required: false }}
+            errors={errors}
+            placeholder="Cuéntanos brevemente qué te motiva a registrarte..."
           />
 
           {/* Campos tutor SOLO si menor */}

@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { registerRequest, loginRequest, verityTokenRequest } from "../api/auth";
+import { registerRequest, loginRequest, verifyTokenRequest } from "../api/auth";
 import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = await verityTokenRequest(cookies.token);
+        const res = await verifyTokenRequest(cookies.token);
         if (!res.data) {
           setIsAuthenticated(false);
           setLoading(false);

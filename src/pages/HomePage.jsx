@@ -1,6 +1,6 @@
 import { Card, CardIcon } from "../components/ui";
 import { useEffect, useState } from "react";
-import { getStudentProfile } from "../api/auth";
+import { getStudentProfile, getAdminProfile } from "../api/auth";
 import { getGreeting } from "../utils/greeting";
 import { getTimeIcon } from "../utils/timeIcon";
 import { FiVideo, FiMessageSquare, FiSmile, FiBookOpen, FiFileText, FiActivity, FiWind, FiAlertCircle, FiPhone } from "react-icons/fi";
@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [student, setStudent] = useState(null);
+  const [admin, setAdmin] = useState(null);
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -22,6 +23,17 @@ export default function HomePage() {
       }
     };
 
+    const fetchAdmin = async () => {
+      try {
+        const res = await getAdminProfile();
+        console.log(res.data); // Datos del admin
+        setAdmin(res.data);
+      } catch (err) {
+        console.log("Error al obtener el admin:", err);
+      }
+    };
+
+    fetchAdmin();
     fetchStudent();
   }, []);
 
@@ -40,7 +52,7 @@ export default function HomePage() {
             {/* Saludo + frase en dos líneas */}
             <div>
               <h1 className="text-4xl font-semibold text-primary">
-                {`${getGreeting()}, ${student?.first_name}`}
+                {`${getGreeting()}, ${student?.first_name || admin?.email || "Usuario"}!`}
               </h1>
               <p className="mt-2 text-gray-600 text-lg">
                 Nos alegra verte de nuevo. ¿Cómo te sientes hoy?

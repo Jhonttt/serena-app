@@ -209,7 +209,7 @@ function RegisterPage() {
             register={register}
             rules={{ required: false }}
             errors={errors}
-            placeholder="Cuéntanos brevemente qué te motiva a registrarte..."
+            placeholder="Tus datos estarán cifrados y protegidos conforme a la normativa de protección de datos"
           />
 
           {/* Campos tutor SOLO si menor */}

@@ -12,6 +12,14 @@ export default function HomePage() {
   const [student, setStudent] = useState(null);
   const [admin, setAdmin] = useState(null);
   const { user, isAdmin } = useAuth();
+  const [selectedMood, setSelectedMood] = useState(null);
+
+  const moods = [
+    { id: "muy-bien", label: "Muy bien", icon: <FiSmile size={20} />, color: "green" },
+    { id: "bien", label: "Bien", icon: <FiThumbsUp size={20} />, color: "blue" },
+    { id: "normal", label: "Normal", icon: <FiMeh size={20} />, color: "purple" },
+    { id: "no-muy-bien", label: "No muy bien", icon: <FiFrown size={20} />, color: "red" },
+  ];
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -33,7 +41,7 @@ export default function HomePage() {
         console.log("Error al obtener el admin:", err);
       }
     };
-    
+
     if (isAdmin) {
       fetchAdmin();
     } else {
@@ -198,42 +206,29 @@ export default function HomePage() {
           />
         </section>
       </div>
+
       <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
         style={{ background: "rgb(253, 253, 253)" }}>
         <h2 className="text-2xl font-semibold text-primary mt-5 pb-4">¿Cómo te sientes hoy?</h2>
-
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-10 mt-5">
-          {/* Muy bien */}
-          <button
-            className="flex flex-col items-center justify-center pt-3 pb-3 rounded-xl bg-green-100 hover:bg-green-200 hover:scale-105 transition-all">
-            <FiSmile size={20} className="text-green-700" />
-            <span className="font-medium text-gray-700">Muy bien</span>
-          </button>
-
-          {/* Bien */}
-          <button
-            className="flex flex-col items-center justify-center p-1 rounded-xl bg-blue-100 hover:bg-blue-200 hover:scale-105 transition-all ">
-            <FiThumbsUp size={20} className="text-blue-700" />
-            <span className="font-medium text-gray-700">Bien</span>
-          </button>
-
-          {/* Normal */}
-          <button
-            className=" flex flex-col items-center justify-center p-1 rounded-xl bg-purple-100 hover:bg-purple-200 hover:scale-105 transition-all">
-            <FiMeh size={20} className="text-purple-700" />
-            <span className="font-medium text-gray-700">Normal</span>
-          </button>
-
-          {/* No muy bien */}
-          <button
-            className="flex flex-col items-center justify-center p-1 rounded-xl bg-red-100 hover:bg-red-200 hover:scale-105 transition-all">
-            <FiFrown size={20} className="text-red-700" />
-            <span className="font-medium text-gray-700">No muy bien</span>
-          </button>
+          {moods.map((mood) => {
+            const isSelected = selectedMood === mood.id;
+            return (
+              <button
+                key={mood.id}
+                onClick={() => setSelectedMood(mood.id)}
+                className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all
+          ${isSelected ? `bg-${mood.color}-500 text-white scale-105` : `bg-${mood.color}-100 text-gray-700 hover:bg-${mood.color}-200 hover:scale-105`}`}
+              >
+                {mood.icon}
+                <span className="font-medium">{mood.label}</span>
+              </button>
+            );
+          })}
         </section>
-            <p className="text-gray-600 mb-5 text-center text-sm">
-              Registrar tu estado de ánimo nos ayuda a brindarte mejor apoyo
-            </p>
+        <p className="text-gray-600 mb-5 text-center text-sm">
+          Registrar tu estado de ánimo nos ayuda a brindarte mejor apoyo
+        </p>
       </div>
       <div
         className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-1 border border-gray-200"

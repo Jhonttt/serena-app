@@ -63,7 +63,7 @@ const resources = [
 export default function Resources() {
   return (
     <div className="max-w-7xl mx-auto px-10 rounded-2xl border border-gray-200 mt-9 mb-9" style={{ backgroundColor: '#fffefe' }} >
-      <h2 className="text-3xl font-bold text-primary mb-6 mt-5">
+      <h2 className="text-3xl font-semibold text-primary mb-8 mt-10">
         Recursos de Aprendizaje
       </h2>
 

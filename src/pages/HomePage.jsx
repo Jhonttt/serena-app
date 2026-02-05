@@ -6,10 +6,12 @@ import { getTimeIcon } from "../utils/timeIcon";
 import { FiVideo, FiMessageSquare, FiSmile, FiBookOpen, FiFileText, FiActivity, FiWind, FiAlertCircle, FiPhone, FiThumbsUp, FiMeh, FiFrown } from "react-icons/fi";
 //Esta biblioteca nos permite hacer un enlace interno en react
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function HomePage() {
   const [student, setStudent] = useState(null);
   const [admin, setAdmin] = useState(null);
+  const { user, isAdmin } = useAuth();
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -31,22 +33,21 @@ export default function HomePage() {
         console.log("Error al obtener el admin:", err);
       }
     };
-
-    fetchAdmin();
-    fetchStudent();
-  }, []);
+    
+    if (isAdmin) {
+      fetchAdmin();
+    } else {
+      fetchStudent();
+    }
+  }, [isAdmin]);
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
-      <div
-        className="max-w-7xl mx-auto px-10 rounded-2xl border border-gray-200 bg-linear-to-br from-blue-100 via-purple-100 to-rose-100"
-      >
+      <div className="max-w-7xl mx-auto px-10 rounded-2xl border border-gray-200 bg-linear-to-br from-blue-100 via-purple-100 to-rose-100">
         <section className="text-primary py-7">
           <div className="flex items-center gap-4">
             {/* Icono dinámico, con tamaño grande */}
-            <div className="text-6xl">
-              {getTimeIcon()}
-            </div>
+            <div className="text-6xl">{getTimeIcon()}</div>
 
             {/* Saludo + frase en dos líneas */}
             <div>
@@ -61,9 +62,27 @@ export default function HomePage() {
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-10">
-          <Card title="12" text="Sesiones Completadas" titleSize="text-2xl" titleColor="#4db6ac" className="transition-transform duration-300 hover:scale-103" />
-          <Card title="15%" text="Progreso General" titleSize="text-2xl" titleColor="#64b5f6" className="transition-transform duration-300 hover:scale-103" />
-          <Card title="5" text="Días de racha activa" titleSize="text-2xl" titleColor="#ce93d8" className="transition-transform duration-300 hover:scale-103" />
+          <Card
+            title="12"
+            text="Sesiones Completadas"
+            titleSize="text-2xl"
+            titleColor="#4db6ac"
+            className="transition-transform duration-300 hover:scale-103"
+          />
+          <Card
+            title="15%"
+            text="Progreso General"
+            titleSize="text-2xl"
+            titleColor="#64b5f6"
+            className="transition-transform duration-300 hover:scale-103"
+          />
+          <Card
+            title="5"
+            text="Días de racha activa"
+            titleSize="text-2xl"
+            titleColor="#ce93d8"
+            className="transition-transform duration-300 hover:scale-103"
+          />
         </section>
       </div>
 
@@ -87,7 +106,10 @@ export default function HomePage() {
             text="Contacta con tu terapeuta"
             titleSize="text-lg"
             iconButton={
-              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#e3f2fd" }}>
+              <button
+                className="p-2 rounded-2xl"
+                style={{ backgroundColor: "#e3f2fd" }}
+              >
                 <FiVideo size={20} color="#1e3a8a" /> {/* Azul contraste */}
               </button>
             }
@@ -100,8 +122,12 @@ export default function HomePage() {
             text="Habla con un consejero"
             className="relative p-6 rounded-xl bg-white/50 hover:bg-[#edf8f7] hover:scale-105 transition-all"
             iconButton={
-              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#e0f2f1" }}>
-                <FiMessageSquare size={20} color="#00695c" /> {/* Verde contraste */}
+              <button
+                className="p-2 rounded-2xl"
+                style={{ backgroundColor: "#e0f2f1" }}
+              >
+                <FiMessageSquare size={20} color="#00695c" />{" "}
+                {/* Verde contraste */}
               </button>
             }
           />
@@ -113,7 +139,10 @@ export default function HomePage() {
             text="Relájate y encuentra calma"
             className="relative p-6 rounded-xl bg-white/50 hover:bg-[#faf4fb] hover:scale-105 transition-all"
             iconButton={
-              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#f3e5f5" }}>
+              <button
+                className="p-2 rounded-2xl"
+                style={{ backgroundColor: "#f3e5f5" }}
+              >
                 <FiSmile size={20} color="#6a1b9a" /> {/* Morado contraste */}
               </button>
             }
@@ -143,7 +172,10 @@ export default function HomePage() {
             text="Registra tus sentimientos"
             className="relative p-6 rounded-xl bg-white/50 hover:bg-[#f2f9f2] hover:scale-105 transition-all"
             iconButton={
-              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#e8f5e9" }}>
+              <button
+                className="p-2 rounded-2xl"
+                style={{ backgroundColor: "#e8f5e9" }}
+              >
                 <FiFileText size={20} color="#2e7d32" /> {/* Verde contraste */}
               </button>
             }
@@ -156,13 +188,15 @@ export default function HomePage() {
             text="Técnicas de afrontamiento"
             className="relative p-6 rounded-xl bg-white/50 hover:bg-[#fdeff4] hover:scale-105 transition-all"
             iconButton={
-              <button className="p-2 rounded-2xl" style={{ backgroundColor: "#fce4ec" }}>
+              <button
+                className="p-2 rounded-2xl"
+                style={{ backgroundColor: "#fce4ec" }}
+              >
                 <FiActivity size={20} color="#c2185b" /> {/* Rosa contraste */}
               </button>
             }
           />
         </section>
-
       </div>
       <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
         style={{ background: "rgb(253, 253, 253)" }}>
@@ -201,7 +235,6 @@ export default function HomePage() {
               Registrar tu estado de ánimo nos ayuda a brindarte mejor apoyo
             </p>
       </div>
-
       <div
         className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-1 border border-gray-200"
         style={{ background: "rgb(253, 253, 253)" }}
@@ -221,7 +254,8 @@ export default function HomePage() {
           <Card
             title={
               <div className="flex items-center gap-2">
-                <FiWind size={24} color="#ec4899" /> {/* Icono rosa para contraste */}
+                <FiWind size={24} color="#ec4899" />{" "}
+                {/* Icono rosa para contraste */}
                 Técnicas de respiración
               </div>
             }
@@ -229,7 +263,10 @@ export default function HomePage() {
             titleSize="text-2xl"
           >
             <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
-              <div className="bg-pink-500 h-3 rounded-full" style={{ width: `${(9 / 10) * 100}%` }}></div>
+              <div
+                className="bg-pink-500 h-3 rounded-full"
+                style={{ width: `${(9 / 10) * 100}%` }}
+              ></div>
             </div>
             <p className="text-right text-sm text-gray-600 mt-1">90%</p>
           </Card>
@@ -238,7 +275,8 @@ export default function HomePage() {
           <Card
             title={
               <div className="flex items-center gap-2">
-                <FiFileText size={24} color="#2563eb" /> {/* Azul para contraste */}
+                <FiFileText size={24} color="#2563eb" />{" "}
+                {/* Azul para contraste */}
                 Diario de emociones
               </div>
             }
@@ -246,7 +284,10 @@ export default function HomePage() {
             titleSize="text-2xl"
           >
             <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
-              <div className="bg-blue-500 h-3 rounded-full" style={{ width: `${(14 / 20) * 100}%` }}></div>
+              <div
+                className="bg-blue-500 h-3 rounded-full"
+                style={{ width: `${(14 / 20) * 100}%` }}
+              ></div>
             </div>
             <p className="text-right text-sm text-gray-600 mt-1">70%</p>
           </Card>
@@ -255,7 +296,8 @@ export default function HomePage() {
           <Card
             title={
               <div className="flex items-center gap-2">
-                <FiSmile size={24} color="#7c3aed" /> {/* Morado para contraste */}
+                <FiSmile size={24} color="#7c3aed" />{" "}
+                {/* Morado para contraste */}
                 Meditación diaria
               </div>
             }
@@ -263,7 +305,10 @@ export default function HomePage() {
             titleSize="text-2xl"
           >
             <div className="w-full bg-gray-200 h-3 rounded-full mt-2">
-              <div className="bg-purple-500 h-3 rounded-full" style={{ width: `${(17 / 20) * 100}%` }}></div>
+              <div
+                className="bg-purple-500 h-3 rounded-full"
+                style={{ width: `${(17 / 20) * 100}%` }}
+              ></div>
             </div>
             <p className="text-right text-sm text-gray-600 mt-1">85%</p>
           </Card>
@@ -271,16 +316,17 @@ export default function HomePage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-red-300 bg-linear-to-br from-red-50 via-red-100 to-red-200">
-
         <section className="text-primary py-7">
           <div className="flex items-center gap-2">
-            <FiAlertCircle size={24} color="#dc2626" /> {/* Icono informativo rojo */}
+            <FiAlertCircle size={24} color="#dc2626" />{" "}
+            {/* Icono informativo rojo */}
             <h2 className="text-2xl font-semibold text-primary">
               ¿Necesitas Ayuda Inmediata?
             </h2>
           </div>
           <p className="mt-4 text-gray-600">
-            Si estás en crisis o necesitas apoyo urgente, estamos aquí para ti las 24 horas.
+            Si estás en crisis o necesitas apoyo urgente, estamos aquí para ti
+            las 24 horas.
           </p>
 
           {/* Botón funcional con icono de teléfono blanco y hover */}

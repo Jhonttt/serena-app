@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import Logo from "../assets/logo.svg";
@@ -7,10 +7,12 @@ function Navbar() {
   const { isAuthenticated, logout, user, isAdmin, loading } = useAuth();
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     setIsProfileMenuOpen(false);
+    navigate("/login");
   };
 
   // Obtener iniciales del usuario
@@ -49,7 +51,7 @@ function Navbar() {
             {isAuthenticated ? (
               <>
                 <Link
-                  to="/"
+                  to="/home"
                   className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors"
                 >
                   Inicio

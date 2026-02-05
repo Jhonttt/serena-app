@@ -206,7 +206,7 @@ export default function HomePage() {
           />
         </section>
       </div>
-
+      
       <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
         style={{ background: "rgb(253, 253, 253)" }}>
         <h2 className="text-2xl font-semibold text-primary mt-5 pb-4">¿Cómo te sientes hoy?</h2>

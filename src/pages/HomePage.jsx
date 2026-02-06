@@ -15,10 +15,38 @@ export default function HomePage() {
   const [selectedMood, setSelectedMood] = useState(null);
 
   const moods = [
-    { id: "muy-bien", label: "Muy bien", icon: <FiSmile size={20} />, color: "green" },
-    { id: "bien", label: "Bien", icon: <FiThumbsUp size={20} />, color: "blue" },
-    { id: "normal", label: "Normal", icon: <FiMeh size={20} />, color: "purple" },
-    { id: "no-muy-bien", label: "No muy bien", icon: <FiFrown size={20} />, color: "red" },
+    {
+      id: "muy-bien",
+      label: "Muy bien",
+      icon: <FiSmile size={20} className="text-green-700" />,
+      base: "bg-green-100",
+      hover: "hover:bg-green-200",
+      selected: "bg-green-200 border border-green-400"
+    },
+    {
+      id: "bien",
+      label: "Bien",
+      icon: <FiThumbsUp size={20} className="text-blue-700" />,
+      base: "bg-blue-100",
+      hover: "hover:bg-blue-200",
+      selected: "bg-blue-200 border border-blue-400"
+    },
+    {
+      id: "normal",
+      label: "Normal",
+      icon: <FiMeh size={20} className="text-purple-700" />,
+      base: "bg-purple-100",
+      hover: "hover:bg-purple-200",
+      selected: "bg-purple-200 border border-purple-400"
+    },
+    {
+      id: "no-muy-bien",
+      label: "No muy bien",
+      icon: <FiFrown size={20} className="text-red-700" />,
+      base: "bg-red-100",
+      hover: "hover:bg-red-200",
+      selected: "bg-red-200 border border-red-400"
+    },
   ];
 
   useEffect(() => {
@@ -206,26 +234,33 @@ export default function HomePage() {
           />
         </section>
       </div>
-      
+
       <div className="max-w-7xl mx-auto px-10 rounded-2xl p-2 m-6 border border-gray-200"
         style={{ background: "rgb(253, 253, 253)" }}>
         <h2 className="text-2xl font-semibold text-primary mt-5 pb-4">¿Cómo te sientes hoy?</h2>
         <section className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-10 mt-5">
-          {moods.map((mood) => {
-            const isSelected = selectedMood === mood.id;
-            return (
-              <button
-                key={mood.id}
-                onClick={() => setSelectedMood(mood.id)}
-                className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all
-          ${isSelected ? `bg-${mood.color}-500 text-white scale-105` : `bg-${mood.color}-100 text-gray-700 hover:bg-${mood.color}-200 hover:scale-105`}`}
-              >
-                {mood.icon}
-                <span className="font-medium">{mood.label}</span>
-              </button>
-            );
-          })}
+         {moods.map((mood) => {
+    const isSelected = selectedMood === mood.id;
+
+    return (
+      <button
+        key={mood.id}
+        onClick={() => setSelectedMood(mood.id)}
+        className={`flex flex-col items-center justify-center p-3 rounded-xl transition-all
+          ${
+            isSelected
+              ? `${mood.selected} scale-105`
+              : `${mood.base} ${mood.hover} hover:scale-105`
+          }
+        `}
+      >
+        {mood.icon}
+        <span className="font-medium text-gray-700">{mood.label}</span>
+      </button>
+    );
+  })}
         </section>
+
         <p className="text-gray-600 mb-5 text-center text-sm">
           Registrar tu estado de ánimo nos ayuda a brindarte mejor apoyo
         </p>

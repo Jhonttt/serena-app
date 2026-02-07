@@ -80,7 +80,7 @@ export default function HomePage() {
             <div className="text-6xl">{getTimeIcon()}</div>
             <div>
               <h1 className="text-4xl font-semibold text-primary">
-                {`${getGreeting()}, ${student?.first_name || admin?.email || "Usuario"}!`}
+                {`${getGreeting()}, ${student?.first_name || admin?.email?.split("@")[0] || "Usuario"}!`}
               </h1>
               <p className="mt-2 text-gray-600 text-lg">
                 Nos alegra verte de nuevo. ¿Cómo te sientes hoy?

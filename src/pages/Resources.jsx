@@ -5,55 +5,87 @@ import { getResourcesRequest } from "../api/resources";
 
 export default function Resources() {
   const [resources, setResources] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchResources = async () => {
       try {
         const res = await getResourcesRequest();
-        // mapeamos para añadir iconos según type
-        const mapped = res.data.map(r => ({
+        const mapped = res.data.map((r) => ({
           ...r,
-          icon: r.type_resource === "Video" ? <FiVideo size={24} color="#2196f3" /> :
-                r.type_resource === "Audio" ? <FiMusic size={24} color="#e91e63" /> :
-                <FiBook size={24} color="#ff9800" />
+          icon:
+            r.type_resource === "Video" ? (
+              <FiVideo size={24} color="#2196f3" />
+            ) : r.type_resource === "Audio" ? (
+              <FiMusic size={24} color="#e91e63" />
+            ) : (
+              <FiBook size={24} color="#ff9800" />
+            ),
         }));
         setResources(mapped);
       } catch (error) {
         console.error("Error cargando recursos:", error);
+        setError("No se pudieron cargar los recursos");
+      } finally {
+        setLoading(false);
       }
     };
-
     fetchResources();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-10 py-10 text-center">
+        <p>Cargando recursos...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-7xl mx-auto px-10 py-10 text-center text-red-600">
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="max-w-7xl mx-auto px-10 rounded-2xl border border-gray-200 mt-9 mb-9" style={{ backgroundColor: '#fffefe' }} >
+    <div
+      className="max-w-7xl mx-auto px-10 rounded-2xl border border-gray-200 mt-9 mb-9"
+      style={{ backgroundColor: "#fffefe" }}
+    >
       <h2 className="text-3xl font-semibold text-primary mb-8 mt-10">
         Recursos de Aprendizaje
       </h2>
 
-      <div className="grid md:grid-cols-3 gap-6">
-        {resources.map((r, i) => (
-          <a
-            key={i}
-            href={r.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-white p-6 rounded-xl shadow flex flex-col items-start gap-3 hover:scale-105 transition-transform hover:bg-[#f8f9ff]"
-          >
-            <div className="flex items-center gap-2">
-              {r.icon}
-              <h3 className="font-semibold">{r.title}</h3>
-            </div>
-            <p className="text-gray-600 text-sm">{r.description}</p>
-          </a>
-        ))}
-      </div>
+      {resources.length === 0 ? (
+        <p className="text-gray-600 mb-8">No hay recursos disponibles</p>
+      ) : (
+        <div className="grid md:grid-cols-3 gap-6">
+          {resources.map((r, i) => (
+            <a
+              key={i}
+              href={r.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white p-6 rounded-xl shadow flex flex-col items-start gap-3 hover:scale-105 transition-transform hover:bg-[#f8f9ff]"
+            >
+              <div className="flex items-center gap-2">
+                {r.icon}
+                <h3 className="font-semibold">{r.title}</h3>
+              </div>
+              <p className="text-gray-600 text-sm">{r.description}</p>
+            </a>
+          ))}
+        </div>
+      )}
+
       <Link
-        to="/" 
+        to="/"
         className="inline-flex items-center gap-2 bg-blue-500 text-white px-4 py-2 mb-9 mt-8 rounded-lg font-semibold transition-transform duration-200 hover:scale-105"
       >
-        🏠 Volver al inicio
+        Volver al inicio 🏠
       </Link>
     </div>
   );

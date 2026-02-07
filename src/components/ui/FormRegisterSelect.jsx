@@ -38,20 +38,44 @@ export function FormRegisterSelect({
               styles={{
                 control: (provided, state) => ({
                   ...provided,
-                  minHeight: "2.5rem",
-                  padding: 0,
+                  minHeight: "38px",
+                  height: "38px",
                   borderRadius: "0.5rem",
                   borderColor: state.isFocused ? "#3b82f6" : "#d1d5db",
-                  boxShadow: state.isFocused ? "0 0 0 1px #3b82f6" : "none",
+                  boxShadow: state.isFocused ? "0 0 0 2px #3b82f6" : "none",
+                  "&:hover": {
+                    borderColor: state.isFocused ? "#3b82f6" : "#d1d5db",
+                  },
                 }),
                 valueContainer: (provided) => ({
                   ...provided,
-                  padding: "0 0.75rem",
-                  height: "2.5rem",
+                  height: "38px",
+                  padding: "8px 12px",
+                  fontSize: 14,
                 }),
-                input: (provided) => ({ ...provided, margin: 0, padding: 0 }),
-                singleValue: (provided) => ({ ...provided, margin: 0 }),
-                menu: (provided) => ({ ...provided, borderRadius: 12 }),
+                indicatorsContainer: (provided) => ({
+                  ...provided,
+                  height: "38px",
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  margin: 0,
+                  padding: 0,
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  margin: 0,
+                }),
+                placeholder: (provided) => ({
+                  ...provided,
+                  margin: 0,
+                  fontSize: 14,
+                  color: "#9CA3AF"
+                }),
+                menu: (provided) => ({
+                  ...provided,
+                  borderRadius: "0.5rem",
+                }),
                 option: (provided) => ({
                   ...provided,
                   padding: "0.5rem 0.75rem",

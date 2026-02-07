@@ -128,7 +128,7 @@ function ProfilePage() {
   return (
     <div className="container mx-auto p-4 max-w-3xl">
       {/* Header con avatar y badge */}
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow-lg p-8 mb-6 text-white">
+      <div className="bg-linear-to-r from-blue-500 to-purple-600 rounded-lg shadow-lg p-8 mb-6 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             {/* Avatar */}
@@ -303,9 +303,14 @@ function ProfilePage() {
                             <span className="font-medium">Relación:</span>{" "}
                             {tutor.relationship}
                           </p>
+                          {tutor.email_tutor && (
+                            <p className="text-sm text-gray-600 mt-1">
+                              Email: {tutor.email_tutor}
+                            </p>
+                          )}
                           {tutor.phone && (
                             <p className="text-sm text-gray-600 mt-1">
-                              📱 {tutor.phone}
+                              Teléfono: {tutor.phone}
                             </p>
                           )}
                         </div>

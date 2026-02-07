@@ -57,19 +57,19 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       console.log("🚪 Cerrando sesión...");
-      
+
       // ✅ Llamar al backend para eliminar la cookie
       await logoutRequest();
-      
+
       // ✅ Limpiar el estado
       setIsAuthenticated(false);
       setUser(null);
       setIsAdmin(false);
-      
+
       console.log("✅ Sesión cerrada correctamente");
     } catch (error) {
       console.error("❌ Error al cerrar sesión:", error);
-      
+
       // ✅ Aunque falle el backend, limpiar el estado local
       setIsAuthenticated(false);
       setUser(null);
@@ -112,9 +112,20 @@ export const AuthProvider = ({ children }) => {
 
         setLoading(false);
       } catch (error) {
-        setIsAuthenticated(false);
-        setUser(null);
-        setIsAdmin(false);
+        // ✅ Si es error 401, es porque no hay sesión (NO mostrar en consola)
+        if (error.response?.status === 401) {
+          setIsAuthenticated(false);
+          setUser(null);
+          setIsAdmin(false);
+        } else {
+          // Solo mostrar errores inesperados (500, network, etc)
+          console.error("❌ Error al verificar sesión:", error);
+          setIsAuthenticated(false);
+          setUser(null);
+          setIsAdmin(false);
+        }
+      } finally {
+        // ✅ Siempre finalizar el loading
         setLoading(false);
       }
     }

@@ -22,3 +22,14 @@ export const getUserEmail = async (userId) => {
     withCredentials: true,
   });
 };
+
+
+export const getStudentHome = () =>
+  axios.get("/home");
+
+//Con cookies 
+//export const getStudentHome = async () => {
+//   return await axios.get("/home", {
+//     withCredentials: true,
+//   });
+// };

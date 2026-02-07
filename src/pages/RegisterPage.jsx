@@ -215,12 +215,14 @@ function RegisterPage() {
           {/* Campos tutor SOLO si menor */}
           {mostrarTutor && (
             <>
-              <h2 className="text-lg font-semibold mt-4">Datos del tutor</h2>
+              <h2 className="text-lg font-semibold mt-4 text-center">
+                Datos del tutor
+              </h2>
 
               {/* Nombre del tutor completo */}
               <FormRegisterInput
                 label="Nombre completo"
-                name="full_name"
+                name="full_name_tutor"
                 register={register}
                 rules={{ required: mostrarTutor }}
                 errors={errors}
@@ -231,7 +233,7 @@ function RegisterPage() {
               {/* Teléfono */}
               <FormRegisterInput
                 label="Teléfono"
-                name="phone"
+                name="phone_tutor"
                 type="tel"
                 register={register}
                 rules={{ required: mostrarTutor }}
@@ -253,11 +255,23 @@ function RegisterPage() {
                 options={[
                   { value: "padre", label: "Padre" },
                   { value: "madre", label: "Madre" },
-                  { value: "tutor_legal", label: "Tutor Legal" },
+                  { value: "tutor legal", label: "Tutor Legal" },
                   { value: "abuelo", label: "Abuelo/a" },
                   { value: "hermano_mayor", label: "Hermano/a Mayor" },
                   { value: "otro", label: "Otro" },
                 ]}
+              />
+
+              {/* Email */}
+              <FormRegisterInput
+                label="Email del tutor"
+                name="email_tutor"
+                type="email"
+                register={register}
+                rules={{ required: true }}
+                errors={errors}
+                placeholder="correo@ejemplo.com"
+                errorMessage="El email del tutor es obligatorio"
               />
             </>
           )}

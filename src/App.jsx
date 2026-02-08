@@ -10,6 +10,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Resources from "./pages/Resources";
+import SettingsPage from "./pages/SettingsPage";
 import CreateResource from "./pages/CreateResource";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/upload" element={<CreateResource />} />
+                <Route path="/settings" element={<SettingsPage />} />
               </Route>
             </Routes>
           </main>

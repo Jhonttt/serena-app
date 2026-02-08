@@ -18,6 +18,17 @@ function LoginPage() {
     if (isAuthenticated) navigate("/home");
   }, [isAuthenticated]);
 
+  const fieldLabels = {
+    first_name: "Nombre",
+    last_name: "Apellido",
+    email: "Correo Electrónico",
+    birth_day: "Fecha de Nacimiento",
+    education_level: "Nivel Educativo",
+    current_password: "Contraseña Actual",
+    new_password: "Nueva Contraseña",
+    confirm_password: "Confirmar Contraseña",
+  };
+
   const onSubmit = handleSubmit((values) => signin(values));
 
   return (

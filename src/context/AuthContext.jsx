@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setError] = useState([]);
-  const [loading, setLoading] = useState(true); // poner a true?
+  const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const signup = async (userData) => {
@@ -75,6 +75,14 @@ export const AuthProvider = ({ children }) => {
       setUser(null);
       setIsAdmin(false);
     }
+  };
+
+  // ✅ NUEVA FUNCIÓN: Actualizar información del usuario
+  const updateUser = (updatedData) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      ...updatedData,
+    }));
   };
 
   useEffect(() => {
@@ -138,6 +146,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         signin,
         logout,
+        updateUser,
         loading,
         user,
         isAuthenticated,

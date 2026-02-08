@@ -99,9 +99,7 @@ function RegisterPage() {
   }, [birthDay, unregister]);
 
   // Fecha mínima permitida (120 años atrás)
-  const minBirthDate = new Date();
-  minBirthDate.setFullYear(minBirthDate.getFullYear() - 110);
-  const minDateStr = minBirthDate.toISOString().split("T")[0];
+  const minDateStr = minDate();
 
   const onSubmit = handleSubmit((values) => signup(values), onError);
 
@@ -157,7 +155,7 @@ function RegisterPage() {
               max: new Date().toISOString().split("T")[0],
               min: minDateStr,
             }}
-            errorMessage="La fecha es obligatoria"
+            errorMessage="La fecha de nacimiento es obligatoria"
           />
 
           {/* Nivel educativo */}

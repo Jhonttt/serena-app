@@ -7,6 +7,7 @@ import {
   FormRegisterSelect,
   FormRegisterTextArea,
 } from "../components/ui";
+import { minDate } from "../utils/minDate";
 
 function RegisterPage() {
   const {

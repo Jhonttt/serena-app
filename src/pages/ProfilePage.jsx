@@ -1,8 +1,10 @@
 import { getStudentProfile, getAdminProfile } from "../api/auth";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function ProfilePage() {
+  const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [userType, setUserType] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,11 +16,15 @@ function ProfilePage() {
       try {
         setLoading(true);
         setError(null);
-        try {
+        
+        // ✅ Decidir qué endpoint llamar basándose en el role_id del contexto
+        if (user?.role_id === 3) {
+          // Es estudiante
           const res = await getStudentProfile();
           setProfile(res.data);
           setUserType("student");
-        } catch {
+        } else if (user?.role_id === 1) {
+          // Es admin
           const res = await getAdminProfile();
           setProfile(res.data);
           setUserType("admin");
@@ -31,12 +37,14 @@ function ProfilePage() {
       }
     };
 
-    fetchProfile();
-  }, []);
+    if (user) { // ← Solo ejecutar si ya tenemos el usuario del contexto
+      fetchProfile();
+    }
+  }, [user]); // ← Dependencia: se ejecuta cuando cambia user
 
   const handleEditProfile = () => {
     // Navegar a página de edición
-    navigate("/profile/edit");
+    navigate("/settings");
   };
 
   const formatDate = (dateString) => {

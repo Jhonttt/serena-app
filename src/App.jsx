@@ -10,27 +10,29 @@ import ProtectedRoute from "./ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Resources from "./pages/Resources";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <main className="grow flex flex-col justify-center px-4 bg-gray-100">
-          <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/home" element={<HomePage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-               <Route path="/resources" element={<Resources />} /> 
-            </Route>
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+        <div className="flex flex-col min-h-screen">
+          <Navbar />
+          <main className="grow flex flex-col justify-center px-4 bg-gray-100">
+            <Routes>
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/home" element={<HomePage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/resources" element={<Resources />} />
+                <Route path="/settings" element={<SettingsPage />}/>
+              </Route>
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </BrowserRouter>
     </AuthProvider>
   );

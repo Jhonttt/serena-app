@@ -64,97 +64,99 @@ function CreateResource() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-10 py-10 rounded-2xl border border-gray-200 mt-9 mb-9 bg-white">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-8">
-        Crear Nuevo Recurso
-      </h2>
+    <div className="flex justify-center w-full">
+      <div className="bg-white w-full max-w-lg p-10 rounded-2xl shadow-lg my-18">
+        <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+          Crear Nuevo Recurso
+        </h1>
 
-      {/* Renderizado condicional del mensaje*/}
-      {feedback.text && (
-        <div
-          className={`mb-6 p-4 rounded-lg text-sm font-medium ${
-            feedback.type === "success"
-              ? "bg-green-100 text-green-700 border border-green-200"
-              : "bg-red-100 text-red-700 border border-red-200"
-          }`}
-        >
-          {feedback.text}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <FormRegisterInput
-          label="Título del recurso"
-          name="title"
-          type="text"
-          register={register}
-          rules={{
-            required: true,
-          }}
-          errors={errors}
-          placeholder="Ej: Introducción a la meditación"
-          errorMessage="El título es requerido"
-        />
-
-        <FormRegisterTextArea
-          label="Descripción"
-          name="description"
-          register={register}
-          rules={{
-            required: true,
-          }}
-          errors={errors}
-          placeholder="Describe brevemente el recurso..."
-          errorMessage="La descripción es requerida"
-          maxLength={255}
-          rows={4}
-        />
-
-        <FormRegisterInput
-          label="URL del recurso"
-          name="url"
-          type="url"
-          register={register}
-          rules={{
-            required: true,
-          }}
-          errors={errors}
-          placeholder="https://ejemplo.com/recurso"
-          errorMessage="La URL es requerida"
-        />
-
-        <FormRegisterSelect
-          label="Tipo de recurso"
-          name="type_resource"
-          control={control}
-          rules={{
-            required: true,
-          }}
-          errors={errors}
-          options={typeOptions}
-          placeholder="Selecciona un tipo"
-          errorMessage="El tipo de recurso es requerido"
-        />
-
-        <div className="flex gap-4 pt-4">
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="flex-1 bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+        {/* Renderizado condicional del mensaje*/}
+        {feedback.text && (
+          <div
+            className={`mb-6 p-4 rounded-lg text-sm font-medium ${
+              feedback.type === "success"
+                ? "bg-green-100 text-green-700 border border-green-200"
+                : "bg-red-100 text-red-700 border border-red-200"
+            }`}
           >
-            {isSubmitting ? "Creando..." : "Crear Recurso"}
-          </button>
+            {feedback.text}
+          </div>
+        )}
 
-          <button
-            type="button"
-            onClick={() => navigate("/resources")}
-            disabled={isSubmitting}
-            className="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300 disabled:opacity-50 transition-colors"
-          >
-            Cancelar
-          </button>
-        </div>
-      </form>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <FormRegisterInput
+            label="Título del recurso"
+            name="title"
+            type="text"
+            register={register}
+            rules={{
+              required: true,
+            }}
+            errors={errors}
+            placeholder="Ej: Introducción a la meditación"
+            errorMessage="El título es requerido"
+          />
+
+          <FormRegisterTextArea
+            label="Descripción"
+            name="description"
+            register={register}
+            rules={{
+              required: true,
+            }}
+            errors={errors}
+            placeholder="Describe brevemente el recurso..."
+            errorMessage="La descripción es requerida"
+            maxLength={255}
+            rows={4}
+          />
+
+          <FormRegisterInput
+            label="URL del recurso"
+            name="url"
+            type="url"
+            register={register}
+            rules={{
+              required: true,
+            }}
+            errors={errors}
+            placeholder="https://ejemplo.com/recurso"
+            errorMessage="La URL es requerida"
+          />
+
+          <FormRegisterSelect
+            label="Tipo de recurso"
+            name="type_resource"
+            control={control}
+            rules={{
+              required: true,
+            }}
+            errors={errors}
+            options={typeOptions}
+            placeholder="Selecciona un tipo"
+            errorMessage="El tipo de recurso es requerido"
+          />
+
+          <div className="flex gap-4 pt-4">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="flex-1 bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            >
+              {isSubmitting ? "Creando..." : "Crear Recurso"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("/resources")}
+              disabled={isSubmitting}
+              className="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300 disabled:opacity-50 transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

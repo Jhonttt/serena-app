@@ -44,16 +44,28 @@ function LoginPage() {
             errorMessage="El email es obligatorio"
           />
 
-          <FormLoginInput
-            label="Contraseña:"
-            name="password"
-            type="password"
-            register={register}
-            rules={{ required: true }}
-            errors={errors}
-            placeholder="••••••••"
-            errorMessage="La contraseña es obligatoria"
-          />
+          <div>
+            <FormLoginInput
+              label="Contraseña:"
+              name="password"
+              type="password"
+              register={register}
+              rules={{ required: true }}
+              errors={errors}
+              placeholder="••••••••"
+              errorMessage="La contraseña es obligatoria"
+            />
+
+            <div className="text-right mt-2">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-blue-600 hover:text-blue-700 hover:underline"
+              >
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
+          </div>
+
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 text-lg transition w-full"

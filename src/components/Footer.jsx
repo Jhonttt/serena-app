@@ -54,7 +54,7 @@ function Footer() {
           </div>
             <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-sm">
               Plataforma de recursos educativos para el bienestar emocional y
-              el aprendizaje.
+              el aprendizaje de los estudiantes.
             </p>
             {/* Redes sociales */}
             <div className="flex space-x-4">
@@ -140,10 +140,12 @@ function Footer() {
             {/* Enlaces adicionales */}
             <div className="flex items-center space-x-6 text-sm text-gray-500">
               <a
-                href="mailto:contacto@proyectoserena.org"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=proyectoserena@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hover:text-blue-600 transition-colors duration-200"
               >
-                contacto@proyectoserena.org
+                proyectoserena@gmail.com
               </a>
               <a
                 href="https://proyectoserena.org"

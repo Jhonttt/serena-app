@@ -10,7 +10,7 @@ import {
   deactivateAccount,
 } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
-import { ErrorSummary } from "../components/ui";
+import { ErrorSummary, ConfirmModal } from "../components/ui";
 import { PersonalInfoForm } from "../components/settings/PersonalInfoForm";
 import { SecurityForm } from "../components/settings/SecurityForm";
 import { PreferencesForm } from "../components/settings/PreferencesForm";
@@ -24,6 +24,7 @@ function SettingsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [feedback, setFeedback] = useState({ text: "", type: "" });
+  const [showDeactivateModal, setShowDeactivateModal] = useState(false);
   const navigate = useNavigate();
 
   // Labels para el resumen de errores
@@ -220,20 +221,25 @@ function SettingsPage() {
   };
 
   const handleDeactivateAccount = async () => {
-    const confirmed = window.confirm(
-      "¿Estás seguro de que deseas desactivar tu cuenta? Esta acción marcará tu cuenta como inactiva y cerrarás sesión."
-    );
-
-    if (!confirmed) return;
-
     try {
       await deactivateAccount();
-      alert("Cuenta desactivada correctamente");
-      await logout();
-      navigate("/login");
+      setShowDeactivateModal(false); // ✅ Cerrar modal
+      setFeedback({
+        text: "✅ Cuenta desactivada correctamente",
+        type: "success",
+      });
+      setTimeout(async () => {
+        await logout();
+        navigate("/login");
+      }, 1500);
     } catch (error) {
       console.error("Error deactivating account:", error);
-      alert("Error al desactivar la cuenta");
+      setShowDeactivateModal(false);
+      setFeedback({
+        text: "Error al desactivar la cuenta",
+        type: "error",
+      });
+      setTimeout(() => setFeedback({ text: "", type: "" }), 5000);
     }
   };
 
@@ -334,6 +340,12 @@ function SettingsPage() {
             </div>
           )}
 
+          {feedback.text && feedback.type === "error" && (
+            <div className="mb-6 p-4 rounded-lg text-sm font-medium bg-red-100 text-red-700 border border-red-200">
+              {feedback.text}
+            </div>
+          )}
+
           {/* Resumen de errores */}
           {activeTab === "personal" && (
             <ErrorSummary errors={errorsPersonal} fieldLabels={fieldLabels} />
@@ -386,13 +398,25 @@ function SettingsPage() {
             Estas acciones son permanentes y no se pueden deshacer.
           </p>
           <button
-            onClick={handleDeactivateAccount}
+            onClick={() => setShowDeactivateModal(true)} // ✅ Abrir modal
             className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors cursor-pointer"
           >
             Desactivar Cuenta
           </button>
         </div>
       </div>
+
+      {/* ✅ Modal de confirmación */}
+      <ConfirmModal
+        isOpen={showDeactivateModal}
+        onClose={() => setShowDeactivateModal(false)}
+        onConfirm={handleDeactivateAccount}
+        title="¿Desactivar tu cuenta?"
+        message="Esta acción marcará tu cuenta como inactiva y cerrarás sesión. Esta acción no se puede deshacer."
+        confirmText="Sí, desactivar"
+        cancelText="Cancelar"
+        type="danger"
+      />
     </div>
   );
 }

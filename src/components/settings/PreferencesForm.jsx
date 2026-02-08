@@ -43,7 +43,6 @@ export function PreferencesForm({
         >
           <option value="es">Español</option>
           <option value="en">English</option>
-          <option value="ca">Català</option>
         </select>
       </div>
 

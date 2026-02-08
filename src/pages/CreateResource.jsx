@@ -141,7 +141,7 @@ function CreateResource() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+              className="flex-1 bg-blue-500 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors cursor-pointer"
             >
               {isSubmitting ? "Creando..." : "Crear Recurso"}
             </button>
@@ -150,7 +150,7 @@ function CreateResource() {
               type="button"
               onClick={() => navigate("/resources")}
               disabled={isSubmitting}
-              className="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300 disabled:opacity-50 transition-colors"
+              className="flex-1 bg-gray-200 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300 disabled:opacity-50 transition-colors cursor-pointer"
             >
               Cancelar
             </button>

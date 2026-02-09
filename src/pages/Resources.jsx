@@ -82,7 +82,7 @@ export default function Resources() {
       )}
 
       <Link
-        to="/"
+        to="/home"
         className="inline-flex items-center gap-2 bg-blue-500 text-white px-4 py-2 mb-9 mt-8 rounded-lg font-semibold transition-transform duration-200 hover:scale-105"
       >
         Volver al inicio 🏠

@@ -35,7 +35,7 @@ function Navbar() {
           {/* Logo y nombre */}
           <div className="flex items-center">
             <a
-              href="https://proyectoserena.org"
+              href="http://localhost:80/serena-wp/"
               className="flex items-center space-x-2"
             >
               <img

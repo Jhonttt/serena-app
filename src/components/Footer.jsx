@@ -41,20 +41,20 @@ function Footer() {
           {/* Logo y descripción */}
           <div className="lg:col-span-2">
             <div className="inline-block mb-4">
-            <a
-              href="https://proyectoserena.org"
-              className="flex items-center space-x-2"
-            >
-              <img
-                src={Logo}
-                alt="Serena Logo"
-                className="h-8 w-auto object-contain"
-              />
-            </a>
-          </div>
+              <a
+                href="http://localhost:80/serena-wp/"
+                className="flex items-center space-x-2"
+              >
+                <img
+                  src={Logo}
+                  alt="Serena Logo"
+                  className="h-8 w-auto object-contain"
+                />
+              </a>
+            </div>
             <p className="text-gray-600 text-sm leading-relaxed mb-4 max-w-sm">
-              Plataforma de recursos educativos para el bienestar emocional y
-              el aprendizaje de los estudiantes.
+              Plataforma de recursos educativos para el bienestar emocional y el
+              aprendizaje de los estudiantes.
             </p>
             {/* Redes sociales */}
             <div className="flex space-x-4">

@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FormLoginInput } from "../components/ui";
 
@@ -13,6 +13,20 @@ function LoginPage() {
   } = useForm();
   const { signin, isAuthenticated, errors: loginErrors } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const hasReloaded = sessionStorage.getItem("loginPageReloaded");
+
+    if (!hasReloaded) {
+      sessionStorage.setItem("loginPageReloaded", "true");
+      window.location.reload();
+    }
+
+    return () => {
+      sessionStorage.removeItem("loginPageReloaded");
+    };
+  }, []);
 
   useEffect(() => {
     if (isAuthenticated) navigate("/home");

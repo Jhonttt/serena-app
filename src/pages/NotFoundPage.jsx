@@ -45,7 +45,7 @@ function NotFoundPage() {
           </Link>
 
           <Link
-            to="/"
+            to="http://localhost:80/serena-wp"
             className="px-8 py-3 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg font-medium transition-colors"
           >
             Ir a la página principal
@@ -64,7 +64,9 @@ function NotFoundPage() {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span>Vuelve a la página anterior usando el botón de tu navegador</span>
+              <span>
+                Vuelve a la página anterior usando el botón de tu navegador
+              </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>

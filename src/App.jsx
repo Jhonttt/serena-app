@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, Navigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 
 // Pages
@@ -12,9 +18,10 @@ import CreateResource from "./pages/CreateResource";
 import NotFoundPage from "./pages/NotFoundPage";
 
 // Components
-import ProtectedRoute from "./ProtectedRoute";
+import ProtectedRoute from "./middleware/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import AdminRoute from "./middleware/AdminRoute";
 
 // Layout con Navbar y Footer
 function MainLayout() {
@@ -38,21 +45,24 @@ function App() {
           <Route element={<MainLayout />}>
             {/* Redirect raíz a login */}
             <Route path="/" element={<Navigate to="/login" replace />} />
-            
+
             {/* Rutas públicas */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            
+
             {/* Rutas protegidas */}
             <Route element={<ProtectedRoute />}>
               <Route path="/home" element={<HomePage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/resources" element={<Resources />} />
-              <Route path="/upload" element={<CreateResource />} />
+              <Route element={<AdminRoute />}>
+                <Route path="/upload" element={<CreateResource />} />
+              </Route>
               <Route path="/settings" element={<SettingsPage />} />
             </Route>
           </Route>
 
+          <Route path="/404" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

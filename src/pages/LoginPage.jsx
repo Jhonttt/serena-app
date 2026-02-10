@@ -82,7 +82,7 @@ function LoginPage() {
 
           <button
             type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 text-lg transition w-full"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 text-lg transition w-full cursor-pointer"
           >
             Iniciar sesión
           </button>

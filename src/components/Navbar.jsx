@@ -10,8 +10,9 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logout();
+    setIsMobileMenuOpen(false);
     setIsProfileMenuOpen(false);
+    await logout();
     navigate("/login");
   };
 

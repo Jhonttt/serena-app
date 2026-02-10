@@ -6,6 +6,7 @@ import { FormRegisterSelect } from "./FormRegisterSelect";
 import { FormRegisterTextArea } from "./FormRegisterTextArea";
 import { ErrorSummary } from "./ErrorSummary";
 import { ConfirmModal } from "./ConfirmModal";
+import { ChatbotButton } from "./ChatbotButton";
 
 
-export { Card, CardIcon, FormLoginInput, FormRegisterInput, FormRegisterSelect, FormRegisterTextArea, ErrorSummary, ConfirmModal };
+export { Card, CardIcon, FormLoginInput, FormRegisterInput, FormRegisterSelect, FormRegisterTextArea, ErrorSummary, ConfirmModal, ChatbotButton };

@@ -6,6 +6,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 
 // Pages
 import RegisterPage from "./pages/RegisterPage";
@@ -22,9 +23,11 @@ import ProtectedRoute from "./middleware/ProtectedRoute";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AdminRoute from "./middleware/AdminRoute";
+import { ChatbotButton } from './components/ui'
 
 // Layout con Navbar y Footer
 function MainLayout() {
+  const { isAuthenticated } = useAuth();
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -32,6 +35,8 @@ function MainLayout() {
         <Outlet />
       </main>
       <Footer />
+
+      {isAuthenticated && <ChatbotButton />}
     </div>
   );
 }

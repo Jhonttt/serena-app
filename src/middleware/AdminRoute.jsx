@@ -13,7 +13,7 @@ function AdminRoute() {
     );
   }
   if (!loading && !isAuthenticated) return <Navigate to="/login" replace />;
-  if (!loading && !isAdmin) return <Navigate to={"/404"} replace />;
+  if (!loading && !isAdmin) return <NotFoundPage />;
 
   return <Outlet />;
 }

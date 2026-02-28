@@ -51,7 +51,7 @@ function Footer() {
           <div className="lg:col-span-2">
             <div className="inline-block mb-4">
               <a
-                href="http://localhost:80/serena-wp/"
+                href="https://proyectoserena.org/"
                 className="flex items-center space-x-2"
               >
                 <img

@@ -45,7 +45,7 @@ function NotFoundPage() {
           </Link>
 
           <Link
-            to="http://localhost:80/serena-wp"
+            to="http://https://proyectoserena.org/"
             className="px-8 py-3 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg font-medium transition-colors"
           >
             Ir a la página principal
